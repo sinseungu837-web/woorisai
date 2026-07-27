@@ -47,7 +47,7 @@ side can respond.
 
 ## Demo & materials
 
-<!-- DEMO_VIDEO -->
+https://github.com/user-attachments/assets/22236877-0792-404f-ab25-c83657bf655f
 
 - 📄 **Idea proposal deck (46p):** [docs/아이디어_제안서.pdf](docs/아이디어_제안서.pdf) — problem, solution, AI plan, business model, impact
 - 📊 **Presentation deck (14p):** [docs/발표자료.pdf](docs/발표자료.pdf)
