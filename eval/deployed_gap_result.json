@@ -1,0 +1,23 @@
+{
+ "일반 추천 (용도 명시)": {
+  "hhi": 2176,
+  "cats": 6,
+  "food": 46.2,
+  "n": 865
+ },
+ "열린 추천 ('뭐 할까')": {
+  "hhi": 1667,
+  "cats": 6,
+  "food": 0.0,
+  "n": 450
+ },
+ "gap": {
+  "hhi_deployed": 2176,
+  "hhi_verified": 1251,
+  "hhi_baseline": 2733,
+  "hhi_gap": 925,
+  "mape_deployed": 8.42125,
+  "mape_verified": 3.8712500000000003,
+  "mape_gap": 4.55
+ }
+}

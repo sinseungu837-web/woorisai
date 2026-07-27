@@ -1,0 +1,1728 @@
+[
+  {
+    "id": 1,
+    "text": "40분 비는데 조용히 공부할 데 없나",
+    "intent": "추천",
+    "edge": null,
+    "stores_expected": true,
+    "must_not_contain": [],
+    "gold": {
+      "minutes": 40,
+      "purpose": "스터디"
+    },
+    "answer": "안녕하세요! 남은 시간이 40분이고 스터디를 위해 혼자 방문하실 계획이시군요. 가까운 곳으로 스터디 카페를 추천해 드릴게요.\n\n1. **빵빵스터디카페** - 도보 6분, 현재 보통의 혼잡도\n2. **인피니티크루** - 도보 6분, 현재 보통의 혼잡도\n3. **네모** - 도보 6분, 현재 보통의 혼잡도\n\n세 곳 모두 도보로 6분 거리에 있으며 현재 비슷한 수준의 혼잡도를 보이고 있어요. 조금 덜 붐비는 곳을 원하신다면 **네모**를 추천드립니다. 편안한 스터디 시간 되세요!",
+    "stores": [
+      {
+        "id": "sbMA010120220807410296",
+        "name": "빵빵스터디카페",
+        "category": "실무",
+        "category_detail": "독서실/스터디 카페",
+        "address": "서울특별시 동대문구 경희대로 4-1",
+        "price_from": 3500,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5919972116139,
+        "lng": 127.052560752854,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 563,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 563
+          },
+          "한국외대": {
+            "min": 15,
+            "meters": 1251
+          },
+          "한예종": {
+            "min": 26,
+            "meters": 2115
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5919972116139&dlng=127.052560752854&dname=빵빵스터디카페&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0101202502A0062698",
+        "name": "인피니티크루",
+        "category": "실무",
+        "category_detail": "독서실/스터디 카페",
+        "address": "서울특별시 동대문구 회기로21길 34",
+        "price_from": 3500,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5928979497451,
+        "lng": 127.053127536518,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 512,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 512
+          },
+          "한국외대": {
+            "min": 14,
+            "meters": 1147
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2011
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5928979497451&dlng=127.053127536518&dname=인피니티크루&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0106202509A1159634",
+        "name": "네모",
+        "category": "실무",
+        "category_detail": "독서실/스터디 카페",
+        "address": "서울특별시 동대문구 경희대로 5-1",
+        "price_from": 3500,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5921505459962,
+        "lng": 127.052187205311,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 553,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 553
+          },
+          "한국외대": {
+            "min": 15,
+            "meters": 1241
+          },
+          "한예종": {
+            "min": 26,
+            "meters": 2105
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.559,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5921505459962&dlng=127.052187205311&dname=네모&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": 40,
+      "purpose": "스터디",
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 2,
+    "text": "우리 과 종강총회 25명인데 자리 있어?",
+    "intent": "단체예약",
+    "edge": null,
+    "stores_expected": false,
+    "must_not_contain": [],
+    "gold": {
+      "people": 25
+    },
+    "answer": "언제로 예약하시나요?",
+    "stores": [],
+    "condition": {},
+    "error": null
+  },
+  {
+    "id": 3,
+    "text": "배고파",
+    "intent": "추천",
+    "edge": "맥락누수",
+    "stores_expected": true,
+    "must_not_contain": [
+      "25명",
+      "25 명",
+      "예약"
+    ],
+    "gold": {
+      "purpose": "식사"
+    },
+    "prev_id": 2,
+    "answer": "안녕하세요! 경희대 근처에서 식사를 찾고 계시군요. \n\n* **월미당경희대점** (베트남식 전문) - 도보 6분, 현재 보통의 혼잡도\n* **쓰촨거리** (중국집) - 도보 6분, 현재 보통의 혼잡도\n* **바나프레소경희대점** (백반/한정식) - 도보 6분, 현재 보통의 혼잡도\n\n세 곳 모두 도보로 6분 거리에 있고 현재 비슷한 수준의 혼잡도를 보이고 있어요.  조금 덜 붐비는 곳을 원하신다면 **월미당경희대점**을 추천해 드립니다. 맛있는 식사 되세요!",
+    "stores": [
+      {
+        "id": "sbMA0101202305A0076958",
+        "name": "월미당경희대점",
+        "category": "식사",
+        "category_detail": "베트남식 전문",
+        "address": "서울특별시 동대문구 경희대로4길 15",
+        "price_from": 13000,
+        "capacity": 20,
+        "description": "",
+        "hours": "",
+        "lat": 37.5924923296342,
+        "lng": 127.053512228201,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 551
+          },
+          "한국외대": {
+            "min": 14,
+            "meters": 1100
+          }
+        },
+        "walk_min": 6,
+        "walk_meters": 551,
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5924923296342&dlng=127.053512228201&dname=월미당경희대점&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0101202411A0076076",
+        "name": "쓰촨거리",
+        "category": "식사",
+        "category_detail": "중국집",
+        "address": "서울특별시 동대문구 경희대로1가길 32",
+        "price_from": 9000,
+        "capacity": 24,
+        "description": "",
+        "hours": "",
+        "lat": 37.5930156923473,
+        "lng": 127.051746211608,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 534,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 534
+          },
+          "한국외대": {
+            "min": 16,
+            "meters": 1294
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2012
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5930156923473&dlng=127.051746211608&dname=쓰촨거리&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0106202201A1064365",
+        "name": "바나프레소경희대점",
+        "category": "식사",
+        "category_detail": "백반/한정식",
+        "address": "서울특별시 동대문구 경희대로4길 1",
+        "price_from": 9000,
+        "capacity": 24,
+        "description": "",
+        "hours": "",
+        "lat": 37.5926098202785,
+        "lng": 127.052708382176,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 511,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 511
+          },
+          "한국외대": {
+            "min": 14,
+            "meters": 1170
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2034
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5926098202785&dlng=127.052708382176&dname=바나프레소경희대점&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": null,
+      "purpose": "식사",
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 4,
+    "text": "책 사고 싶어",
+    "intent": "추천",
+    "edge": "데이터",
+    "stores_expected": true,
+    "must_not_contain": [],
+    "gold": {
+      "purpose": "서점"
+    },
+    "answer": "안녕하세요! 서점을 찾으시는군요. \n\n* **경희문고**는 도보 11분 거리에 있으며, 현재 보통 수준의 혼잡도를 보이고 있습니다.\n* **다이스라떼**도 도보 11분 거리에 있으며, 마찬가지로 현재 보통 수준의 혼잡도입니다. \n\n두 곳 모두 비슷한 거리에 있으니, 취향에 따라 선택하시면 됩니다. 조금 덜 붐비는 곳을 원하신다면 **경희문고**를 추천해 드립니다.",
+    "stores": [
+      {
+        "id": "sbMA010120220805330285",
+        "name": "경희문고",
+        "category": "실무",
+        "category_detail": "서점",
+        "address": "서울특별시 동대문구 회기로 113",
+        "price_from": 12000,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5916472271909,
+        "lng": 127.04931085906,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 11,
+        "walk_meters": 888,
+        "walk_campus": {
+          "경희대": {
+            "min": 11,
+            "meters": 888
+          },
+          "한국외대": {
+            "min": 20,
+            "meters": 1552
+          },
+          "한예종": {
+            "min": 30,
+            "meters": 2407
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.595,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5916472271909&dlng=127.04931085906&dname=경희문고&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0106202201A1869774",
+        "name": "다이스라떼",
+        "category": "실무",
+        "category_detail": "서점",
+        "address": "서울특별시 동대문구 이문로 29",
+        "price_from": 12000,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5903198161727,
+        "lng": 127.055933711864,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 11,
+        "walk_meters": 975,
+        "walk_campus": {
+          "경희대": {
+            "min": 11,
+            "meters": 975
+          },
+          "한국외대": {
+            "min": 12,
+            "meters": 979
+          },
+          "한예종": {
+            "min": 26,
+            "meters": 2078
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.65,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5903198161727&dlng=127.055933711864&dname=다이스라떼&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": null,
+      "purpose": "서점",
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 5,
+    "text": "오늘 날씨 어때?",
+    "intent": "범위밖",
+    "edge": "범위밖",
+    "stores_expected": false,
+    "must_not_contain": [
+      "찾으시는군요"
+    ],
+    "gold": {},
+    "answer": "어떤 게 필요하신지 알려주시면 딱 맞는 곳을 찾아드릴게요.\n예) \"40분 비는데 밥 먹을 데\", \"조용한 카페\", \"프린트 어디서 해\"",
+    "stores": [],
+    "condition": {
+      "minutes": null,
+      "purpose": null,
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 6,
+    "text": "3시까지 비는데 친구 생일선물 사야돼",
+    "intent": "추천",
+    "edge": "시각파싱",
+    "stores_expected": true,
+    "must_not_contain": [],
+    "gold": {
+      "purpose": "선물"
+    },
+    "answer": "학생님, 회기동에서 시간을 보내실 때 추천드리는 곳들은 다음과 같습니다:\n\n1. **파파니** - 기념품 구매 / 도보 8분 / 지금 보통\n2. **드림디포경희대 2호점** - 문구 및 회화용품 / 도보 6분 / 지금 보통\n3. **포토이즘박스경희점** - 사진 촬영 / 도보 10분 / 지금 보통\n\n파파니에서 약 25분 정도 시간을 보내시면 좋을 것 같습니다. 시간이 좀 더 남으시면, **포토이즘박스경희점**에서 사진을 찍어보시는 건 어떨까요? (도보 10분, 약 15분 소요) 아니면 **수클린**에서 옷 구경을 하며 시간을 보내실 수도 있습니다 (도보 8분, 약 15분 소요). 이렇게 하면 약 109분의 여유 시간이 남게 됩니다. 덜 붐비는 곳을 선호하신다면 파파니를 먼저 방문하시는 걸 추천드립니다.",
+    "stores": [
+      {
+        "id": "sbMA010120220804354249",
+        "name": "파파니",
+        "category": "실무",
+        "category_detail": "기념품점",
+        "address": "서울특별시 동대문구 회기로 155-1",
+        "price_from": 5000,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5910867106256,
+        "lng": 127.053669739985,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_campus": {
+          "경희대": {
+            "min": 8,
+            "meters": 748
+          },
+          "한국외대": {
+            "min": 14,
+            "meters": 1129
+          }
+        },
+        "walk_min": 8,
+        "walk_meters": 748,
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5910867106256&dlng=127.053669739985&dname=파파니&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA010120220809615036",
+        "name": "드림디포경희대 2호점",
+        "category": "실무",
+        "category_detail": "문구/회화용품 소매업",
+        "address": "서울특별시 동대문구 경희대로3길 2",
+        "price_from": 5000,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5927631450708,
+        "lng": 127.052357477834,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 514,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 514
+          },
+          "한국외대": {
+            "min": 15,
+            "meters": 1202
+          },
+          "한예종": {
+            "min": 26,
+            "meters": 2066
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.559,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5927631450708&dlng=127.052357477834&dname=드림디포경희대 2호점&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA010120220809696613",
+        "name": "포토이즘박스경희점",
+        "category": "사진",
+        "category_detail": "사진촬영업",
+        "address": "서울특별시 동대문구 회기로 171",
+        "price_from": 8000,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5905274595091,
+        "lng": 127.055050701004,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 10,
+        "walk_meters": 857,
+        "walk_campus": {
+          "경희대": {
+            "min": 10,
+            "meters": 857
+          },
+          "한국외대": {
+            "min": 13,
+            "meters": 1072
+          },
+          "한예종": {
+            "min": 26,
+            "meters": 2098
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.559,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 15,
+        "navermap": "nmap://route/walk?dlat=37.5905274595091&dlng=127.055050701004&dname=포토이즘박스경희점&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA010120220803638543",
+        "name": "수클린",
+        "category": "의류",
+        "category_detail": "기타 의류 소매업",
+        "address": "서울특별시 동대문구 회기로 151",
+        "price_from": 20000,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5913932426858,
+        "lng": 127.053239694635,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 8,
+        "walk_meters": 698,
+        "walk_campus": {
+          "경희대": {
+            "min": 8,
+            "meters": 698
+          },
+          "한국외대": {
+            "min": 15,
+            "meters": 1179
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2026
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 20,
+        "navermap": "nmap://route/walk?dlat=37.5913932426858&dlng=127.053239694635&dname=수클린&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": 180,
+      "purpose": "선물",
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 7,
+    "text": "ㅋㅋㅋㅋ",
+    "intent": "무의미",
+    "edge": "무의미",
+    "stores_expected": false,
+    "must_not_contain": [
+      "찾으시는군요"
+    ],
+    "gold": {},
+    "answer": "어떤 게 필요하신지 알려주시면 딱 맞는 곳을 찾아드릴게요.\n예) \"40분 비는데 밥 먹을 데\", \"조용한 카페\", \"프린트 어디서 해\"",
+    "stores": [],
+    "condition": {
+      "minutes": null,
+      "purpose": null,
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 8,
+    "text": "20분 안에 커피 마실 데",
+    "intent": "추천",
+    "edge": null,
+    "stores_expected": true,
+    "must_not_contain": [],
+    "gold": {
+      "minutes": 20,
+      "purpose": "카페"
+    },
+    "answer": "안녕하세요! 남은 시간이 20분이시고 카페에서 시간을 보내고 싶으시다니, 좋은 선택을 도와드릴게요.\n\n1. **부록 카페** - 도보 5분 거리, 현재 보통의 혼잡도\n2. **빽다방서울경희대점** - 도보 5분 거리, 현재 보통의 혼잡도\n3. **메가엠지씨커피경희대점** - 도보 5분 거리, 현재 보통의 혼잡도\n\n세 곳 모두 도보로 5분 거리에 있어 편리하고, 현재 혼잡도는 비슷한 수준입니다. 만약 조금 더 조용한 분위기를 선호하신다면, **부록 카페**를 추천드립니다. 하지만 시간 여유가 있으시다면 원하시는 분위기에 맞춰 선택하시면 될 것 같아요!",
+    "stores": [
+      {
+        "id": "sbMA0101202409A0167251",
+        "name": "부록",
+        "category": "가볍게",
+        "category_detail": "카페",
+        "address": "서울특별시 동대문구 경희대로 16-1",
+        "price_from": 4500,
+        "capacity": 20,
+        "description": "",
+        "hours": "",
+        "lat": 37.5928980666798,
+        "lng": 127.052867107519,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 5,
+        "walk_meters": 470,
+        "walk_campus": {
+          "경희대": {
+            "min": 5,
+            "meters": 470
+          },
+          "한국외대": {
+            "min": 15,
+            "meters": 1181
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2045
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 20,
+        "navermap": "nmap://route/walk?dlat=37.5928980666798&dlng=127.052867107519&dname=부록&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0101202409A0250594",
+        "name": "빽다방서울경희대점",
+        "category": "가볍게",
+        "category_detail": "카페",
+        "address": "서울특별시 동대문구 경희대로 20",
+        "price_from": 4500,
+        "capacity": 20,
+        "description": "",
+        "hours": "",
+        "lat": 37.5933575520468,
+        "lng": 127.052912724857,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 5,
+        "walk_meters": 433,
+        "walk_campus": {
+          "경희대": {
+            "min": 5,
+            "meters": 433
+          },
+          "한국외대": {
+            "min": 16,
+            "meters": 1271
+          },
+          "한예종": {
+            "min": 24,
+            "meters": 1911
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.559,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 20,
+        "navermap": "nmap://route/walk?dlat=37.5933575520468&dlng=127.052912724857&dname=빽다방서울경희대점&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0101202504A0081835",
+        "name": "메가엠지씨커피경희대점",
+        "category": "가볍게",
+        "category_detail": "카페",
+        "address": "서울특별시 동대문구 경희대로 18",
+        "price_from": 4500,
+        "capacity": 20,
+        "description": "",
+        "hours": "",
+        "lat": 37.5929881709032,
+        "lng": 127.052855848242,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 5,
+        "walk_meters": 457,
+        "walk_campus": {
+          "경희대": {
+            "min": 5,
+            "meters": 457
+          },
+          "한국외대": {
+            "min": 15,
+            "meters": 1194
+          },
+          "한예종": {
+            "min": 26,
+            "meters": 2058
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.577,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 20,
+        "navermap": "nmap://route/walk?dlat=37.5929881709032&dlng=127.052855848242&dname=메가엠지씨커피경희대점&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": 20,
+      "purpose": "카페",
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 9,
+    "text": "다음주 금요일 저녁 7시 30명 회식",
+    "intent": "단체예약",
+    "edge": null,
+    "stores_expected": false,
+    "must_not_contain": [],
+    "gold": {
+      "people": 30
+    },
+    "answer": "언제로 예약하시나요?",
+    "stores": [],
+    "condition": {},
+    "error": null
+  },
+  {
+    "id": 10,
+    "text": "필름 현상 어디서 해?",
+    "intent": "추천",
+    "edge": null,
+    "stores_expected": true,
+    "must_not_contain": [],
+    "gold": {
+      "purpose": "사진"
+    },
+    "answer": "안녕하세요! 회기동에서 사진 촬영을 원하시는군요. \n\n* **포토이즘박스경희점** (도보 10분, 현재 보통 혼잡) - 다양한 테마의 사진 부스가 있어요.\n* **태양스튜디오** (도보 5분, 현재 보통 혼잡) - 깔끔한 분위기에서 사진 촬영 가능합니다.\n* **스튜디오줌인** (도보 10분, 현재 보통 혼잡) - 편안한 공간에서 개인 맞춤 촬영을 원할 때 추천합니다.\n\n혼자 방문하시기에는 **태양스튜디오**가 위치가 좀 더 가까우니 참고하세요!  선택은 자유롭게 하세요.",
+    "stores": [
+      {
+        "id": "sbMA010120220809696613",
+        "name": "포토이즘박스경희점",
+        "category": "사진",
+        "category_detail": "사진촬영업",
+        "address": "서울특별시 동대문구 회기로 171",
+        "price_from": 8000,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5905274595091,
+        "lng": 127.055050701004,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 10,
+        "walk_meters": 857,
+        "walk_campus": {
+          "경희대": {
+            "min": 10,
+            "meters": 857
+          },
+          "한국외대": {
+            "min": 13,
+            "meters": 1072
+          },
+          "한예종": {
+            "min": 26,
+            "meters": 2098
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.559,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 15,
+        "navermap": "nmap://route/walk?dlat=37.5905274595091&dlng=127.055050701004&dname=포토이즘박스경희점&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA010120220812600455",
+        "name": "태양스튜디오",
+        "category": "사진",
+        "category_detail": "사진촬영업",
+        "address": "서울특별시 동대문구 경희대로 19-3",
+        "price_from": 8000,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5932406705774,
+        "lng": 127.052357812383,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 5,
+        "walk_meters": 458,
+        "walk_campus": {
+          "경희대": {
+            "min": 5,
+            "meters": 458
+          },
+          "한국외대": {
+            "min": 15,
+            "meters": 1246
+          },
+          "한예종": {
+            "min": 24,
+            "meters": 1936
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.568,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 15,
+        "navermap": "nmap://route/walk?dlat=37.5932406705774&dlng=127.052357812383&dname=태양스튜디오&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0101202212A0024395",
+        "name": "스튜디오줌인",
+        "category": "사진",
+        "category_detail": "사진촬영업",
+        "address": "서울특별시 동대문구 회기로 121",
+        "price_from": 8000,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5916018582324,
+        "lng": 127.050069457217,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 10,
+        "walk_meters": 821,
+        "walk_campus": {
+          "경희대": {
+            "min": 10,
+            "meters": 821
+          },
+          "한국외대": {
+            "min": 19,
+            "meters": 1485
+          },
+          "한예종": {
+            "min": 29,
+            "meters": 2340
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.577,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 15,
+        "navermap": "nmap://route/walk?dlat=37.5916018582324&dlng=127.050069457217&dname=스튜디오줌인&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": null,
+      "purpose": "사진",
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 11,
+    "text": "만원으로 저녁 먹을 데",
+    "intent": "추천",
+    "edge": "예산",
+    "stores_expected": true,
+    "must_not_contain": [],
+    "gold": {
+      "purpose": "식사"
+    },
+    "answer": "안녕하세요! 경희대 근처에서 식사를 찾고 계시군요. \n\n* **월미당경희대점** (베트남식 전문) - 도보 6분, 현재 보통의 혼잡도\n* **쓰촨거리** (중국집) - 도보 6분, 현재 보통의 혼잡도\n* **바나프레소경희대점** (백반/한정식) - 도보 6분, 현재 보통의 혼잡도\n\n세 곳 모두 도보로 6분 거리에 있고 현재 비슷한 수준의 혼잡도를 보이고 있어요.  조금 덜 붐비는 곳을 원하신다면 **월미당경희대점**을 추천해 드립니다. 맛있는 식사 되세요!",
+    "stores": [
+      {
+        "id": "sbMA0101202305A0076958",
+        "name": "월미당경희대점",
+        "category": "식사",
+        "category_detail": "베트남식 전문",
+        "address": "서울특별시 동대문구 경희대로4길 15",
+        "price_from": 13000,
+        "capacity": 20,
+        "description": "",
+        "hours": "",
+        "lat": 37.5924923296342,
+        "lng": 127.053512228201,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 551
+          },
+          "한국외대": {
+            "min": 14,
+            "meters": 1100
+          }
+        },
+        "walk_min": 6,
+        "walk_meters": 551,
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5924923296342&dlng=127.053512228201&dname=월미당경희대점&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0101202411A0076076",
+        "name": "쓰촨거리",
+        "category": "식사",
+        "category_detail": "중국집",
+        "address": "서울특별시 동대문구 경희대로1가길 32",
+        "price_from": 9000,
+        "capacity": 24,
+        "description": "",
+        "hours": "",
+        "lat": 37.5930156923473,
+        "lng": 127.051746211608,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 534,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 534
+          },
+          "한국외대": {
+            "min": 16,
+            "meters": 1294
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2012
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5930156923473&dlng=127.051746211608&dname=쓰촨거리&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0106202201A1064365",
+        "name": "바나프레소경희대점",
+        "category": "식사",
+        "category_detail": "백반/한정식",
+        "address": "서울특별시 동대문구 경희대로4길 1",
+        "price_from": 9000,
+        "capacity": 24,
+        "description": "",
+        "hours": "",
+        "lat": 37.5926098202785,
+        "lng": 127.052708382176,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 511,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 511
+          },
+          "한국외대": {
+            "min": 14,
+            "meters": 1170
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2034
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5926098202785&dlng=127.052708382176&dname=바나프레소경희대점&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": null,
+      "purpose": "식사",
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 12,
+    "text": "도보 5분 안에 밥집",
+    "intent": "추천",
+    "edge": "도보제한",
+    "stores_expected": true,
+    "must_not_contain": [],
+    "gold": {
+      "purpose": "식사"
+    },
+    "answer": "안녕하세요! 경희대 근처에서 식사를 찾고 계시군요. \n\n* **월미당경희대점** (베트남식 전문) - 도보 6분, 현재 보통의 혼잡도\n* **쓰촨거리** (중국집) - 도보 6분, 현재 보통의 혼잡도\n* **바나프레소경희대점** (백반/한정식) - 도보 6분, 현재 보통의 혼잡도\n\n세 곳 모두 도보로 6분 거리에 있고 현재 비슷한 수준의 혼잡도를 보이고 있어요.  조금 덜 붐비는 곳을 원하신다면 **월미당경희대점**을 추천해 드립니다. 맛있는 식사 되세요!",
+    "stores": [
+      {
+        "id": "sbMA0101202305A0076958",
+        "name": "월미당경희대점",
+        "category": "식사",
+        "category_detail": "베트남식 전문",
+        "address": "서울특별시 동대문구 경희대로4길 15",
+        "price_from": 13000,
+        "capacity": 20,
+        "description": "",
+        "hours": "",
+        "lat": 37.5924923296342,
+        "lng": 127.053512228201,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 551
+          },
+          "한국외대": {
+            "min": 14,
+            "meters": 1100
+          }
+        },
+        "walk_min": 6,
+        "walk_meters": 551,
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5924923296342&dlng=127.053512228201&dname=월미당경희대점&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0101202411A0076076",
+        "name": "쓰촨거리",
+        "category": "식사",
+        "category_detail": "중국집",
+        "address": "서울특별시 동대문구 경희대로1가길 32",
+        "price_from": 9000,
+        "capacity": 24,
+        "description": "",
+        "hours": "",
+        "lat": 37.5930156923473,
+        "lng": 127.051746211608,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 534,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 534
+          },
+          "한국외대": {
+            "min": 16,
+            "meters": 1294
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2012
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5930156923473&dlng=127.051746211608&dname=쓰촨거리&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0106202201A1064365",
+        "name": "바나프레소경희대점",
+        "category": "식사",
+        "category_detail": "백반/한정식",
+        "address": "서울특별시 동대문구 경희대로4길 1",
+        "price_from": 9000,
+        "capacity": 24,
+        "description": "",
+        "hours": "",
+        "lat": 37.5926098202785,
+        "lng": 127.052708382176,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 511,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 511
+          },
+          "한국외대": {
+            "min": 14,
+            "meters": 1170
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2034
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5926098202785&dlng=127.052708382176&dname=바나프레소경희대점&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": null,
+      "purpose": "식사",
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 13,
+    "text": "프린트 어디서 해",
+    "intent": "추천",
+    "edge": null,
+    "stores_expected": true,
+    "must_not_contain": [],
+    "gold": {
+      "purpose": "인쇄"
+    },
+    "answer": "안녕하세요! 인쇄물이 필요하시군요. \n\n* **트윈기획** (명함/간판/광고물 제작, 도보 7분, 현재 보통 혼잡)\n* **프린트잇 경희대점** (복사업, 도보 10분, 현재 보통 혼잡)\n* **풀잎문화사** (복사업, 도보 6분, 현재 보통 혼잡)\n\n세 곳 모두 인쇄 서비스를 제공하지만,  **풀잎문화사** 가 도보 거리가 가장 짧아 조금 덜 붐빌 수 있을 것 같습니다.  편하신 곳을 선택하시면 됩니다.",
+    "stores": [
+      {
+        "id": "sbMA010120220801969266",
+        "name": "트윈기획",
+        "category": "실무",
+        "category_detail": "명함/간판/광고물 제작",
+        "address": "서울특별시 동대문구 경희대로1나길 56-6",
+        "price_from": 500,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5932956117478,
+        "lng": 127.050331022443,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_campus": {
+          "경희대": {
+            "min": 7,
+            "meters": 604
+          },
+          "한국외대": {
+            "min": 18,
+            "meters": 1432
+          }
+        },
+        "walk_min": 7,
+        "walk_meters": 604,
+        "walk_source": "valhalla",
+        "congestion": 0.577,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5932956117478&dlng=127.050331022443&dname=트윈기획&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0101202311A0013766",
+        "name": "프린트잇_경희대점",
+        "category": "실무",
+        "category_detail": "복사업",
+        "address": "서울특별시 동대문구 회기로 171",
+        "price_from": 500,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5904914198345,
+        "lng": 127.055050674459,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 10,
+        "walk_meters": 858,
+        "walk_campus": {
+          "경희대": {
+            "min": 10,
+            "meters": 858
+          },
+          "한국외대": {
+            "min": 13,
+            "meters": 1071
+          },
+          "한예종": {
+            "min": 26,
+            "meters": 2099
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.577,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5904914198345&dlng=127.055050674459&dname=프린트잇_경희대점&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA010120220803696920",
+        "name": "풀잎문화사",
+        "category": "실무",
+        "category_detail": "복사업",
+        "address": "서울특별시 동대문구 경희대로 23",
+        "price_from": 500,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.593772962698,
+        "lng": 127.050738976836,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 536,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 536
+          },
+          "한국외대": {
+            "min": 18,
+            "meters": 1457
+          },
+          "한예종": {
+            "min": 27,
+            "meters": 2082
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.586,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.593772962698&dlng=127.050738976836&dname=풀잎문화사&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": null,
+      "purpose": "인쇄",
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 14,
+    "text": "심심해",
+    "intent": "모호",
+    "edge": "무의미",
+    "stores_expected": false,
+    "must_not_contain": [
+      "찾으시는군요"
+    ],
+    "gold": {},
+    "answer": "어떤 게 필요하신지 알려주시면 딱 맞는 곳을 찾아드릴게요.\n예) \"40분 비는데 밥 먹을 데\", \"조용한 카페\", \"프린트 어디서 해\"",
+    "stores": [],
+    "condition": {
+      "minutes": null,
+      "purpose": null,
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 15,
+    "text": "학교 앞 맛집 추천",
+    "intent": "추천",
+    "edge": null,
+    "stores_expected": true,
+    "must_not_contain": [],
+    "gold": {
+      "purpose": "식사"
+    },
+    "answer": "안녕하세요! 경희대 근처에서 식사를 찾고 계시군요. \n\n* **월미당경희대점** (베트남식 전문) - 도보 6분, 현재 보통의 혼잡도\n* **쓰촨거리** (중국집) - 도보 6분, 현재 보통의 혼잡도\n* **바나프레소경희대점** (백반/한정식) - 도보 6분, 현재 보통의 혼잡도\n\n세 곳 모두 도보로 6분 거리에 있고 현재 비슷한 수준의 혼잡도를 보이고 있어요.  조금 덜 붐비는 곳을 원하신다면 **월미당경희대점**을 추천해 드립니다. 맛있는 식사 되세요!",
+    "stores": [
+      {
+        "id": "sbMA0101202305A0076958",
+        "name": "월미당경희대점",
+        "category": "식사",
+        "category_detail": "베트남식 전문",
+        "address": "서울특별시 동대문구 경희대로4길 15",
+        "price_from": 13000,
+        "capacity": 20,
+        "description": "",
+        "hours": "",
+        "lat": 37.5924923296342,
+        "lng": 127.053512228201,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 551
+          },
+          "한국외대": {
+            "min": 14,
+            "meters": 1100
+          }
+        },
+        "walk_min": 6,
+        "walk_meters": 551,
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5924923296342&dlng=127.053512228201&dname=월미당경희대점&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0101202411A0076076",
+        "name": "쓰촨거리",
+        "category": "식사",
+        "category_detail": "중국집",
+        "address": "서울특별시 동대문구 경희대로1가길 32",
+        "price_from": 9000,
+        "capacity": 24,
+        "description": "",
+        "hours": "",
+        "lat": 37.5930156923473,
+        "lng": 127.051746211608,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 534,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 534
+          },
+          "한국외대": {
+            "min": 16,
+            "meters": 1294
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2012
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5930156923473&dlng=127.051746211608&dname=쓰촨거리&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0106202201A1064365",
+        "name": "바나프레소경희대점",
+        "category": "식사",
+        "category_detail": "백반/한정식",
+        "address": "서울특별시 동대문구 경희대로4길 1",
+        "price_from": 9000,
+        "capacity": 24,
+        "description": "",
+        "hours": "",
+        "lat": 37.5926098202785,
+        "lng": 127.052708382176,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 511,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 511
+          },
+          "한국외대": {
+            "min": 14,
+            "meters": 1170
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2034
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5926098202785&dlng=127.052708382176&dname=바나프레소경희대점&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": null,
+      "purpose": "식사",
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 16,
+    "text": "1시간 비어",
+    "intent": "추천",
+    "edge": "시간만",
+    "stores_expected": false,
+    "must_not_contain": [],
+    "gold": {
+      "minutes": 60
+    },
+    "answer": "어떤 게 필요하신지 알려주시면 딱 맞는 곳을 찾아드릴게요.\n예) \"40분 비는데 밥 먹을 데\", \"조용한 카페\", \"프린트 어디서 해\"",
+    "stores": [],
+    "condition": {
+      "minutes": 60,
+      "purpose": null,
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 17,
+    "text": "조용한 카페",
+    "intent": "추천",
+    "edge": null,
+    "stores_expected": true,
+    "must_not_contain": [],
+    "gold": {
+      "purpose": "카페"
+    },
+    "answer": "안녕하세요! 카페를 찾고 계시군요. \n\n* **부록 카페**는 도보 5분 거리에 있으며, 현재 보통 수준의 혼잡도를 보이고 있습니다.\n* **아인스 카페**는 부록 카페에서 도보로 1분 거리에 있으며, 비슷한 수준의 혼잡도를 유지하고 있습니다.\n* **모스플레이스 카페**는 아인스 카페와 비슷한 거리에 위치해 있으며, 현재도 보통 수준의 이용객으로 붐비고 있습니다.\n\n조금 덜 붐비는 곳을 선호하신다면 부록 카페를 추천드립니다. 즐거운 시간 보내세요!",
+    "stores": [
+      {
+        "id": "sbMA0101202409A0167251",
+        "name": "부록",
+        "category": "가볍게",
+        "category_detail": "카페",
+        "address": "서울특별시 동대문구 경희대로 16-1",
+        "price_from": 4500,
+        "capacity": 20,
+        "description": "",
+        "hours": "",
+        "lat": 37.5928980666798,
+        "lng": 127.052867107519,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 5,
+        "walk_meters": 470,
+        "walk_campus": {
+          "경희대": {
+            "min": 5,
+            "meters": 470
+          },
+          "한국외대": {
+            "min": 15,
+            "meters": 1181
+          },
+          "한예종": {
+            "min": 25,
+            "meters": 2045
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 20,
+        "navermap": "nmap://route/walk?dlat=37.5928980666798&dlng=127.052867107519&dname=부록&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA010120220802952667",
+        "name": "아인스",
+        "category": "가볍게",
+        "category_detail": "카페",
+        "address": "서울특별시 동대문구 경희대로 5",
+        "price_from": 4500,
+        "capacity": 20,
+        "description": "",
+        "hours": "",
+        "lat": 37.5920694717607,
+        "lng": 127.052153180064,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 562,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 562
+          },
+          "한국외대": {
+            "min": 15,
+            "meters": 1250
+          },
+          "한예종": {
+            "min": 26,
+            "meters": 2114
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 20,
+        "navermap": "nmap://route/walk?dlat=37.5920694717607&dlng=127.052153180064&dname=아인스&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA010120220803343094",
+        "name": "모스플레이스",
+        "category": "가볍게",
+        "category_detail": "카페",
+        "address": "서울특별시 동대문구 경희대로3길 11",
+        "price_from": 4500,
+        "capacity": 20,
+        "description": "",
+        "hours": "",
+        "lat": 37.5926192013913,
+        "lng": 127.051870489653,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 6,
+        "walk_meters": 555,
+        "walk_campus": {
+          "경희대": {
+            "min": 6,
+            "meters": 555
+          },
+          "한국외대": {
+            "min": 15,
+            "meters": 1243
+          },
+          "한예종": {
+            "min": 26,
+            "meters": 2107
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.55,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 20,
+        "navermap": "nmap://route/walk?dlat=37.5926192013913&dlng=127.051870489653&dname=모스플레이스&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": null,
+      "purpose": "카페",
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 18,
+    "text": "안녕",
+    "intent": "인사",
+    "edge": "무의미",
+    "stores_expected": false,
+    "must_not_contain": [
+      "찾으시는군요"
+    ],
+    "gold": {},
+    "answer": "어떤 게 필요하신지 알려주시면 딱 맞는 곳을 찾아드릴게요.\n예) \"40분 비는데 밥 먹을 데\", \"조용한 카페\", \"프린트 어디서 해\"",
+    "stores": [],
+    "condition": {
+      "minutes": null,
+      "purpose": null,
+      "people": 1
+    },
+    "error": null
+  },
+  {
+    "id": 19,
+    "text": "",
+    "intent": "빈입력",
+    "edge": null,
+    "stores_expected": false,
+    "must_not_contain": [],
+    "gold": {},
+    "answer": "무엇이 필요하신지 한 줄만 적어주세요.\n예) \"40분 비는데 밥 먹을 데\"",
+    "stores": [],
+    "condition": {},
+    "error": null
+  },
+  {
+    "id": 20,
+    "text": "커피 마시고 나서 책도 보고싶어",
+    "intent": "추천",
+    "edge": "복합의도",
+    "stores_expected": true,
+    "must_not_contain": [],
+    "gold": {
+      "purpose": "카페"
+    },
+    "answer": "안녕하세요! 서점을 찾으시는군요. \n\n* **경희문고**는 도보 11분 거리에 있으며, 현재 보통 수준의 혼잡도를 보이고 있습니다.\n* **다이스라떼**도 도보 11분 거리에 있으며, 마찬가지로 현재 보통 수준의 혼잡도입니다. \n\n두 곳 모두 비슷한 거리에 있으니, 취향에 따라 선택하시면 됩니다. 조금 덜 붐비는 곳을 원하신다면 **경희문고**를 추천해 드립니다.",
+    "stores": [
+      {
+        "id": "sbMA010120220805330285",
+        "name": "경희문고",
+        "category": "실무",
+        "category_detail": "서점",
+        "address": "서울특별시 동대문구 회기로 113",
+        "price_from": 12000,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5916472271909,
+        "lng": 127.04931085906,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 11,
+        "walk_meters": 888,
+        "walk_campus": {
+          "경희대": {
+            "min": 11,
+            "meters": 888
+          },
+          "한국외대": {
+            "min": 20,
+            "meters": 1552
+          },
+          "한예종": {
+            "min": 30,
+            "meters": 2407
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.595,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5916472271909&dlng=127.04931085906&dname=경희문고&appname=woorisai",
+        "campus_base": "경희대"
+      },
+      {
+        "id": "sbMA0106202201A1869774",
+        "name": "다이스라떼",
+        "category": "실무",
+        "category_detail": "서점",
+        "address": "서울특별시 동대문구 이문로 29",
+        "price_from": 12000,
+        "capacity": 0,
+        "description": "",
+        "hours": "",
+        "lat": 37.5903198161727,
+        "lng": 127.055933711864,
+        "owner": null,
+        "verified": false,
+        "source": "소상공인시장진흥공단(2026-03)",
+        "walk_min": 11,
+        "walk_meters": 975,
+        "walk_campus": {
+          "경희대": {
+            "min": 11,
+            "meters": 975
+          },
+          "한국외대": {
+            "min": 12,
+            "meters": 979
+          },
+          "한예종": {
+            "min": 26,
+            "meters": 2078
+          }
+        },
+        "walk_source": "valhalla",
+        "congestion": 0.65,
+        "congestion_label": "보통",
+        "correction": 0.91,
+        "dwell_min": 25,
+        "navermap": "nmap://route/walk?dlat=37.5903198161727&dlng=127.055933711864&dname=다이스라떼&appname=woorisai",
+        "campus_base": "경희대"
+      }
+    ],
+    "condition": {
+      "minutes": null,
+      "purpose": "서점",
+      "people": 1
+    },
+    "error": null
+  }
+]

@@ -1,0 +1,29 @@
+# GPU 서버용 — 실제 모델 구동
+# 설치:  pip install -r requirements-gpu.txt
+
+# --- 웹 서버 (공통) ---
+fastapi
+uvicorn[standard]
+python-multipart
+
+# --- 공통 런타임 ---
+# torch 는 CUDA 버전에 맞춰 먼저 설치하세요. 예) CUDA 12.1
+#   pip install torch --index-url https://download.pytorch.org/whl/cu121
+torch>=2.1
+
+# --- EXAONE 3.5 (채널) ---
+transformers>=4.43
+accelerate
+sentencepiece
+protobuf
+
+# --- Chronos-Bolt (본체) ---
+chronos-forecasting>=1.4
+
+# --- BGE-M3 (매칭) ---
+FlagEmbedding
+numpy
+
+# --- 데이터 전처리 (스크립트용, 서버 구동엔 불필요) ---
+pandas
+openpyxl

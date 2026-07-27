@@ -1,0 +1,45 @@
+{
+ "calendar": {
+  "off": 8.42125,
+  "on": 3.8712500000000003,
+  "vac_off": 11.492500000000001,
+  "vac_on": 3.4250000000000003,
+  "sem_off": 5.35,
+  "sem_on": 4.3175
+ },
+ "timetable": {
+  "over_without": 0.0,
+  "over_with": 0.0,
+  "cand_without": 873.0,
+  "cand_with": 892.6987951807229,
+  "loss_rate": 2.2066564094258645,
+  "scenarios": 415
+ },
+ "reviews": {
+  "cards": 23,
+  "keywords": 14,
+  "evidence": 32
+ },
+ "chaining": {
+  "단일": {
+   "hhi": 2733,
+   "cats": 5,
+   "food": 66.7
+  },
+  "체이닝": {
+   "hhi": 2777,
+   "cats": 6,
+   "food": 67.4
+  },
+  "체이닝+분산": {
+   "hhi": 2501,
+   "cats": 6,
+   "food": 23.3
+  },
+  "체이닝+분산+회전": {
+   "hhi": 1251,
+   "cats": 9,
+   "food": 26.7
+  }
+ }
+}

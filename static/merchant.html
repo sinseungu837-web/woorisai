@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>사장님 대시보드 — 우리사이</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<style>
+  .report { background: var(--bg-warm); border: 1px solid var(--green-pale);
+            border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
+            font-size: 14px; line-height: 1.7; white-space: pre-wrap; }
+  .cat-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .trend { border-radius: var(--radius); padding: 18px; margin-bottom: 12px; color: #fff; }
+  .trend.up   { background: var(--green); }
+  .trend.flat { background: var(--indigo); }
+  .trend.down { background: #8B5E3C; }
+  .trend .big { font-size: 18px; font-weight: 800; letter-spacing: -.4px; }
+  .trend .small { opacity: .88; font-size: 12.5px; margin-top: 5px; line-height: 1.5; }
+  .spark { display: flex; align-items: flex-end; gap: 2px; height: 42px; margin-top: 12px; }
+  .spark div { flex: 1; background: rgba(255,255,255,.35); border-radius: 2px 2px 0 0; }
+  .spark div.fc { background: rgba(255,255,255,.9); }
+  /* 실측과 예측 사이의 경계. 어디부터가 AI 예측인지 눈으로 보이게 한다. */
+  .spark div.cut { flex: 0 0 0; width: 0; background: none; align-self: stretch;
+                   border-left: 1px dashed rgba(255,255,255,.75); margin: 0 3px; }
+  .fcnum { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px;
+           font-size: 12px; opacity: .95; }
+  .fcnum b { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .fcnum .p { padding-left: 12px; border-left: 1px dashed rgba(255,255,255,.45); }
+  .src { font-size: 11px; color: var(--gray-2); margin-top: 6px; line-height: 1.5; }
+  .report-fold { margin: 6px 0 4px; }
+  .report-fold > summary {
+    cursor: pointer; font-size: 13px; font-weight: 600; color: var(--indigo);
+    background: var(--indigo-pale); border-radius: 999px; padding: 8px 14px;
+    list-style: none; display: inline-block;
+  }
+  .report-fold > summary::-webkit-details-marker { display: none; }
+  .report-fold[open] > summary { margin-bottom: 10px; }
+
+  /* 학생 목소리 — 키워드 칩과 실행 카드 */
+  .kw-row { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 12px; }
+  .kw { display: inline-flex; align-items: center; gap: 6px; font-size: 13px;
+        padding: 7px 12px; border-radius: 999px; border: 1px solid transparent; }
+  .kw b { font-weight: 700; letter-spacing: -.2px; }
+  .kw i { font-style: normal; font-size: 11px; opacity: .75; font-variant-numeric: tabular-nums; }
+  .kw-new  { background: #FFF3D6; border-color: #F0C86A; color: #7A5200; }
+  .kw-up   { background: var(--green-pale); border-color: var(--green); color: #1F5B32; }
+  .kw-flat { background: var(--indigo-pale); border-color: #C3C9E8; color: #33407A; }
+  .kw-down { background: #F1EEEA; border-color: #D6CFC6; color: #6B6259; }
+  .kw-red  { background: #FDECEC; border-color: #E9A9A9; color: #8A2C2C; }
+
+  .kw-cards { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .kw-card { border: 1px solid var(--line, #E6E2DC); border-left-width: 4px;
+             border-radius: 10px; padding: 11px 13px; background: #fff; }
+  .kw-card.kw-red    { border-left-color: #D9534F; }
+  .kw-card.kw-indigo { border-left-color: var(--indigo); }
+  .kw-card.kw-amber  { border-left-color: #E0A020; }
+  .kw-card.kw-green  { border-left-color: var(--green); }
+  /* style.css의 badge는 quiet/normal/busy/find/indigo만 있어서 나머지를 여기서 정의 */
+  .badge.red   { background: #FDECEC; color: #8A2C2C; }
+  .badge.amber { background: #FFF3D6; color: #7A5200; }
+  .badge.green { background: var(--green-pale); color: var(--green-dark); }
+  .kw-act { font-size: 13.5px; line-height: 1.6; margin: 7px 0 0; }
+  .kw-ev  { font-size: 12px; color: var(--gray-2); margin: 6px 0 0; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div id="top"></div>
+
+  <div class="page">
+    <div class="field">
+      <label>가게 선택</label>
+      <select id="storeSel" onchange="load()"></select>
+    </div>
+
+    <!-- 회기동 실데이터 기반 추이 -->
+    <div id="trend"></div>
+
+    <h2 style="font-size:17px">오늘 시간대별 학생 유입</h2>
+    <p class="sub" style="margin-bottom:8px" id="profileNote">회기동 실제 요일·시간대 매출 프로파일 기준</p>
+    <div class="bar-chart" id="chart"></div>
+    <div class="bar-labels" id="labels"></div>
+
+    <div style="height:22px"></div>
+
+    <!-- 자연어 일일 보고 -->
+    <h2 style="font-size:17px">오늘 장사 어떠셨어요?</h2>
+    <p class="sub" style="margin-bottom:10px">편하게 말하듯 적어주세요. 이 기록이 예측을 교정하는 유일한 실측 데이터입니다.</p>
+    <div class="field">
+      <input id="daily" placeholder="예) 지난주보다 20% 늘었고 손님 40명쯤 왔어요">
+    </div>
+    <button class="btn" onclick="sendDaily()">보고하기</button>
+    <div id="dailyResult"></div>
+
+    <div style="height:22px"></div>
+
+    <h2 style="font-size:17px">컨설팅 리포트</h2>
+    <p class="sub" style="margin-bottom:10px">필요할 때만 생성합니다</p>
+    <button class="btn indigo" onclick="loadReport()">리포트 생성하기</button>
+    <div id="report" style="margin-top:14px"></div>
+  </div>
+</div>
+
+<script src="/static/js/common.js?v=41"></script>
+<script>
+document.getElementById("top").innerHTML = topbar("사장님 대시보드");
+
+async function init() {
+  const stores = await api("/api/stores");
+  document.getElementById("storeSel").innerHTML =
+    stores.map(s => `<option value="${s.id}">${s.name}</option>`).join("");
+  load();
+}
+
+function storeId() { return document.getElementById("storeSel").value; }
+
+// 매출은 자릿수가 커서 원 단위로 쓰면 못 읽는다. 억/만 단위로 줄인다.
+function won(v) {
+  if (!isFinite(v)) return "-";
+  if (v >= 1e8) {
+    const eok = Math.floor(v / 1e8), man = Math.round((v % 1e8) / 1e4);
+    return man ? `${eok}억 ${man.toLocaleString()}만원` : `${eok}억원`;
+  }
+  return `${Math.round(v / 1e4).toLocaleString()}만원`;
+}
+
+async function load() {
+  const id = storeId();
+  const [d, t, p] = await Promise.all([
+    api(`/api/merchant/dashboard/${id}`),
+    api(`/api/merchant/trend/${id}`),
+    api(`/api/hoegi/profile`),
+  ]);
+
+  // 시간대 막대
+  const max = Math.max(...d.hourly.map(h => h.score));
+  document.getElementById("chart").innerHTML = d.hourly.map(h =>
+    `<div class="${h.score === max ? "peak" : ""}" style="height:${Math.round(h.score * 100)}%"
+      title="${h.hour}시 ${h.label}"></div>`).join("");
+  document.getElementById("labels").innerHTML =
+    d.hourly.map(h => `<span>${h.hour % 3 === 0 ? h.hour : ""}</span>`).join("");
+  document.getElementById("profileNote").textContent =
+    `회기동 실데이터 기준 · 가장 붐비는 요일 ${p.busiest_day} · 시간대 ${p.busiest_time}시`;
+
+  // 추이 카드
+  const tr = t.trend;
+  if (tr.available) {
+    const cls = tr.direction === "증가" ? "up" : tr.direction === "감소" ? "down" : "flat";
+    const hist = tr.history.slice(-8), fc = tr.forecast;
+    const all = [...hist, ...fc], mx = Math.max(...all);
+    document.getElementById("trend").innerHTML = `
+      <div class="trend ${cls}">
+        <div class="big">${t.sentence}</div>
+        <div class="small">
+          <b>${tr.category}</b> 업종 매출을 <b>${tr.points}개 분기</b>치 보고,
+          앞으로 <b>${fc.length}개 분기</b>를 예측했습니다
+          <span style="opacity:.75">(그래프는 최근 ${hist.length}개 분기만 표시)</span><br>
+          방학기에는 유동인구가 ${t.vacation_effect ? t.vacation_effect.change_pct : "-"}% 변합니다
+        </div>
+        <div class="spark">
+          ${hist.map(v => `<div style="height:${Math.round(v / mx * 100)}%"></div>`).join("")}
+          <div class="cut"></div>
+          ${fc.map(v => `<div class="fc" style="height:${Math.round(v / mx * 100)}%"></div>`).join("")}
+        </div>
+        <div class="fcnum">
+          <span>직전 분기 실측 <b>${won(hist[hist.length - 1])}</b></span>
+          ${fc.map((v, i) => `<span class="p">예측 ${i + 1}분기 뒤 <b>${won(v)}</b></span>`).join("")}
+        </div>
+      </div>
+      <p class="src">점선 왼쪽은 실제 기록, 오른쪽 밝은 막대가 예측입니다.
+      과거 매출 흐름만 보고 뽑은 값이라 금액을 그대로 믿기보다
+      대략의 규모로만 봐주세요.</p>`;
+  } else {
+    document.getElementById("trend").innerHTML =
+      `<div class="notice"><b>추이 예측 불가</b>${tr.reason}</div>`;
+  }
+
+  document.getElementById("report").innerHTML = "";
+  document.getElementById("dailyResult").innerHTML = "";
+}
+
+async function sendDaily() {
+  const text = document.getElementById("daily").value.trim();
+  if (!text) return;
+  const r = await post("/api/merchant/daily", { store_id: storeId(), text });
+  const p = r.parsed;
+  document.getElementById("dailyResult").innerHTML = `
+    <div class="card" style="margin-top:12px">
+      <h3 style="font-size:15px">기록됐습니다 (누적 ${r.total_reports}건)</h3>
+      <div class="cat-row">
+        ${p.sales_change_pct !== null ? `<span class="badge indigo">매출 ${p.sales_change_pct > 0 ? "+" : ""}${p.sales_change_pct}%</span>` : ""}
+        ${p.customers !== null ? `<span class="badge indigo">손님 ${p.customers}명</span>` : ""}
+        <span class="badge ${badgeClass(p.level)}">${p.level}</span>
+      </div>
+      <p class="src" style="margin-top:10px">
+        EXAONE이 문장에서 수치를 추출했습니다.<br>
+        보정계수: ${r.calibration.factor} · ${r.calibration.status}
+      </p>
+    </div>`;
+  document.getElementById("daily").value = "";
+}
+
+const PERIOD_BADGE = {
+  "방학": "quiet", "시험기간": "normal", "축제": "busy", "평상시": "normal" };
+
+function insightViz(ins) {
+  if (!ins || !ins.by_day) return "";
+  // 낮(9~18시) 공강 피크를 프론트에서 직접 계산 → 백엔드 lunch_peak 없어도 정확
+  const lunch = ins.by_hour ? (() => {
+    let best = 9, bestv = -1;
+    for (let hh = 9; hh <= 18; hh++) {
+      const v = ins.by_hour[hh] || 0;
+      if (v > bestv) { bestv = v; best = hh; }
+    }
+    return best;
+  })() : (ins.lunch_peak || ins.busiest_hour);
+  const days = ["월", "화", "수", "목", "금"];
+  const vals = days.map(d => ins.by_day[d] || 0);
+  const max = Math.max(...vals, 1);
+  const bars = days.map((d, i) => {
+    const h = Math.round(vals[i] / max * 100);
+    const peak = d === ins.busiest_day;
+    return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+      <div style="width:100%;height:90px;display:flex;align-items:flex-end">
+        <div style="width:100%;height:${h}%;border-radius:4px 4px 0 0;
+          background:${peak ? "var(--green)" : "var(--green-tint)"}"></div>
+      </div>
+      <div style="font-size:12px;color:${peak ? "var(--green)" : "var(--gray)"};font-weight:${peak ? 700 : 400}">${d}</div>
+      <div style="font-size:11px;color:var(--gray-2)">${Math.round(vals[i])}</div>
+    </div>`;
+  }).join("");
+
+  // 시간대별 공강 분포 (9~21시). 낮 피크(lunch_peak)를 강조,
+  // 19시 이후는 대부분 하교해 전원 공강이라 회색 처리(영업 판단서 제외)
+  const hourViz = ins.by_hour ? (() => {
+    const hours = [];
+    for (let hh = 9; hh <= 21; hh++) hours.push(hh);
+    const hvals = hours.map(hh => ins.by_hour[hh] || 0);
+    const hmax = Math.max(...hvals, 1);
+    const hbars = hours.map((hh, i) => {
+      const bh = Math.round(hvals[i] / hmax * 100);
+      const isPeak = hh === lunch;
+      const evening = hh >= 19;
+      return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
+        <div style="width:100%;height:66px;display:flex;align-items:flex-end">
+          <div style="width:100%;height:${bh}%;border-radius:3px 3px 0 0;background:${
+            isPeak ? "var(--green)" : evening ? "var(--line)" : "var(--green-tint)"}"></div>
+        </div>
+        <div style="font-size:10px;color:${isPeak ? "var(--green)" : "var(--gray-2)"};
+          font-weight:${isPeak ? 700 : 400}">${hh % 3 === 0 ? hh : ""}</div>
+      </div>`;
+    }).join("");
+    return `<div style="height:18px"></div>
+      <h3 style="font-size:15px;margin:0 0 4px">시간대별 학생 공강 분포</h3>
+      <p class="sub" style="margin:0 0 10px">낮 공강 피크 <b style="color:var(--green)">${lunch}시</b>
+        · <span style="color:var(--gray-2)">회색(19시~)은 대부분 하교해 전원 공강, 영업 판단 제외</span></p>
+      <div style="display:flex;gap:3px;align-items:flex-end">${hbars}</div>`;
+  })() : "";
+
+  return `<div class="card">
+    <div class="card-row" style="margin-bottom:10px">
+      <h3 style="font-size:15px;margin:0">요일별 학생 공강 분포</h3>
+      <span class="badge ${PERIOD_BADGE[ins.period] || "normal"}">${ins.period}</span>
+    </div>
+    <p class="sub" style="margin:0 0 12px">학생 ${ins.n_students}명 시간표 집계 · 숫자는 그 요일 평균 공강 학생 수</p>
+    <div style="display:flex;gap:6px;align-items:flex-end">${bars}</div>
+    ${hourViz}
+    <p class="src" style="margin-top:12px">
+      공강 최다 <b style="color:var(--green)">${ins.busiest_day}요일</b>에 방문이 몰리고,
+      <b>${ins.quietest_day}요일</b>이 가장 한산합니다. 낮 시간대는
+      <b style="color:var(--green)">${lunch}시</b>경 공강 학생이 가장 많습니다.<br>
+      ${ins.calendar_note || ""}
+    </p>
+  </div>`;
+}
+
+function popViz(pop, link) {
+  if (!pop || !pop.available) return "";
+  const hist = pop.history.slice(-18), fc = pop.forecast;
+  const all = [...hist, ...fc], mx = Math.max(...all);
+  const bars = hist.map(v => `<div style="height:${Math.round(v / mx * 100)}%"></div>`).join("")
+    + `<div class="cut"></div>`
+    + fc.map(v => `<div class="fc" style="height:${Math.round(v / mx * 100)}%"></div>`).join("");
+  // 인구와 매출이 엇갈릴 때의 경고 문구는 뺐다.
+  // 두 지표의 방향이 다르다는 것만으로 '소비 전환이 약해졌다'고 단정할 수 없고,
+  // 사장님이 그 진단을 근거로 움직이면 손해가 될 수 있다.
+  // 상관이 확인될 때만 그 사실을 말한다.
+  let note = "";
+  if (link && link.available && !link.diverging) {
+    note = `생활인구와 매출은 상관 <b>${link.correlation}</b>로 함께 움직입니다. `
+         + `사람이 늘면 매출도 따라 오르는 구조라, 인구 추이가 곧 매출의 선행 신호입니다.`;
+  }
+  const cls = pop.direction === "증가" ? "up" : pop.direction === "감소" ? "down" : "flat";
+  return `<div class="trend ${cls}" style="margin-top:12px">
+    <div class="big">생활인구(사람 수) ${pop.direction} · 최근 ${pop.change_pct > 0 ? "+" : ""}${pop.change_pct}%</div>
+    <div class="small">
+      회기동에 머문 사람 수를 <b>${pop.points}개월</b>치 보고,
+      앞으로 <b>${fc.length}개월</b>을 예측했습니다
+      <span style="opacity:.75">(그래프는 최근 ${hist.length}개월만 표시)</span>
+    </div>
+    <div class="spark">${bars}</div>
+    <div class="fcnum">
+      <span>이번 달 실측 <b>${Math.round(hist[hist.length - 1]).toLocaleString()}명</b></span>
+      ${fc.map((v, i) => `<span class="p">예측 ${i + 1}개월 뒤 <b>${Math.round(v).toLocaleString()}명</b></span>`).join("")}
+    </div>
+  </div>
+  <p class="src" style="margin-bottom:12px">${note}</p>`;
+}
+
+// 학생 목소리 — 후기에서 뽑은 키워드·흐름과, 거기서 나온 실행 카드.
+// 판정은 전부 서버(voice.py)가 끝낸 상태다. 여기서는 받은 값을 그리기만 한다.
+const TREND_STYLE = {
+  "신규":   ["new",  "처음 나온 요구"],
+  "급상승": ["up",   "빠르게 느는 중"],
+  "지속":   ["flat", "꾸준히 나오는 말"],
+  "감소":   ["down", "줄어드는 중"],
+  "관찰중": ["flat", "아직 지켜보는 중"],
+};
+const CARD_STYLE = {
+  "개선": ["red",    "먼저 고칠 것"],
+  "도입": ["indigo", "들여놓을 것"],
+  "흐름": ["amber",  "지금 잡을 흐름"],
+  "강점": ["green",  "이미 잘하는 것"],
+};
+
+function voiceViz(v) {
+  if (!v || !v.available || !(v.keywords || []).length) return "";
+
+  const chips = v.keywords.map(k => {
+    const [cls, label] = TREND_STYLE[k.trend] || TREND_STYLE["지속"];
+    return `<span class="kw kw-${cls}" title="${label} · 후기 ${k.doc_count}건에서 언급">
+        <b>${k.term}</b><i>${k.count}</i></span>`;
+  }).join("");
+
+  const cards = (v.cards || []).map(c => {
+    const [cls, label] = CARD_STYLE[c.type] || CARD_STYLE["흐름"];
+    const ev = (c.evidence || []).slice(0, 1)
+      .map(e => `<p class="kw-ev">학생 후기 “${e}”</p>`).join("");
+    return `<div class="kw-card kw-${cls}">
+        <span class="badge ${cls}">${label}</span>
+        <p class="kw-act">${c.action}</p>${ev}</div>`;
+  }).join("");
+
+  const period = v.period ? `${v.period[0]} ~ ${v.period[1]}` : "기간 정보 없음";
+  const ic = v.intent_counts || {};
+  return `<div class="card">
+    <h3 style="font-size:15px">학생들이 많이 한 말 (후기 ${v.n}건 · ${period})</h3>
+    <div class="kw-row">${chips}</div>
+    <p class="src" style="margin:10px 0 0">
+      요청 ${ic["요청"] || 0}건 · 불편 ${ic["불만"] || 0}건 · 칭찬 ${ic["칭찬"] || 0}건
+      — 숫자는 그 단어가 나온 후기 수입니다.</p>
+    ${cards ? `<div class="kw-cards">${cards}</div>` : ""}
+  </div>`;
+}
+
+async function loadReport() {
+  document.getElementById("report").innerHTML = `<div class="empty">생성 중…</div>`;
+  const r = await api(`/api/merchant/report/${storeId()}`);
+  const cats = Object.entries(r.analysis.categories || {})
+    .filter(([, v]) => v > 0)
+    .map(([k, v]) => `<span class="badge indigo">${k} ${v}건</span>`).join("");
+
+  // 시각화(요일·시간대 차트, 생활인구)를 맨 위로 — 긴 텍스트 리포트에 묻히지 않도록.
+  // 텍스트 조언은 아래로 내리고 접어서 필요할 때만 펼쳐 본다.
+  document.getElementById("report").innerHTML = `
+    ${voiceViz(r.voice)}
+    ${insightViz(r.timetable_insight)}
+    ${popViz(r.population, r.pop_link)}
+    ${cats ? `<div class="card">
+        <h3 style="font-size:15px">AI 피드백 집계 (후기 ${r.review_count}건)</h3>
+        <div class="cat-row">${cats}</div>
+        <p style="font-size:13.5px;color:var(--text-2);margin:12px 0 0">${r.analysis.summary}</p>
+        <p style="font-size:13px;color:var(--green);margin:6px 0 0"><b>제안</b> ${r.analysis.suggestion}</p>
+      </div>` : ""}
+    <details class="report-fold">
+      <summary>AI 맞춤 조언 리포트 (텍스트) 펼쳐보기</summary>
+      <div class="report">${r.trend_text}\n\n${r.report}</div>
+    </details>
+    <p class="src">학사일정 보정계수 ${r.correction.factor} · 점주 실측 보정 ${r.calibration.factor}
+    (${r.calibration.status})</p>`;
+}
+
+init();
+document.body.insertAdjacentHTML("beforeend", chatFab());
+</script>
+</body>
+</html>

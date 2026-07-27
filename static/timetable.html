@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>시간표 등록 — 우리사이</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="phone">
+  <div id="top"></div>
+
+  <div class="page">
+    <h2>시간표 한 번이면 끝</h2>
+    <p class="sub">수업 있는 칸을 눌러주세요. 한 학기 내내 이 시간표로 자동 계산합니다.</p>
+
+    <div class="tt-wrap">
+      <table class="tt" id="grid"></table>
+    </div>
+
+    <div style="height:20px"></div>
+    <h2 style="font-size:17px">전공은 편하게 적어주세요</h2>
+    <p class="sub">문장 그대로 적으면 됩니다. 학교·전공을 알아채서 거리 계산과 프로젝트 추천에 씁니다.</p>
+    <div class="field">
+      <textarea id="major" rows="2"
+        placeholder="예) 경희대 컴퓨터공학과 3학년, 요즘 AI·데이터 쪽에 관심 많아요"></textarea>
+    </div>
+    <p class="hint" id="campusHint" style="margin-top:-4px"></p>
+
+    <div class="legend">
+      <div><i style="background:var(--indigo)"></i>수업 (색칠된 칸)</div>
+      <div><i style="background:#fff;border:1px solid var(--line-soft)"></i>공강 (빈 칸)</div>
+    </div>
+
+    <div style="height:18px"></div>
+    <button class="btn" onclick="save()">저장하고 시작하기</button>
+    <p class="hint" style="text-align:center">저장하면 수정할 때까지 유지됩니다</p>
+  </div>
+
+  <div id="tabs"></div>
+</div>
+
+<script src="/static/js/common.js?v=41"></script>
+<script>
+document.getElementById("top").innerHTML = topbar("시간표 등록", false);
+document.getElementById("tabs").innerHTML = tabbar("friends");
+
+let table = {};
+
+function render() {
+  let html = "<tr><th></th>" + DAYS.map(d => `<th>${d}</th>`).join("") + "</tr>";
+  HOURS.forEach(h => {
+    html += `<tr><td class="h">${h}</td>`;
+    DAYS.forEach(d => {
+      const on = (table[d] || []).includes(h);
+      html += `<td class="cell ${on ? "on" : ""}" onclick="toggle('${d}',${h})"></td>`;
+    });
+    html += "</tr>";
+  });
+  document.getElementById("grid").innerHTML = html;
+}
+
+function toggle(day, hour) {
+  table[day] = table[day] || [];
+  const i = table[day].indexOf(hour);
+  if (i >= 0) table[day].splice(i, 1);
+  else table[day].push(hour);
+  render();
+}
+
+// 전공 문장에서 학교를 즉석 추론해 힌트로 보여줌 (서버 로직과 동일 규칙)
+function guessCampus(text) {
+  const t = (text || "").toLowerCase().replace(/\s/g, "");
+  if (/(한국외대|외대|외국어대|hufs)/.test(t)) return "한국외대";
+  if (/(경희대|경희|khu)/.test(t)) return "경희대";
+  return null;
+}
+
+function updateHint() {
+  const c = guessCampus(document.getElementById("major").value);
+  const el = document.getElementById("campusHint");
+  el.textContent = c ? `기준 학교를 '${c}'로 잡을게요` : "학교 이름을 적으면 거리 계산이 더 정확해져요";
+  el.style.color = c ? "var(--green)" : "var(--gray-2)";
+}
+
+async function save() {
+  const major = document.getElementById("major").value.trim();
+  const res = await post("/api/timetable",
+    { user_id: USER, name: "나", timetable: table, major });
+  if (res.campus) localStorage.setItem("campus", res.campus);  // 챗봇이 바로 사용
+
+  // 저장된 값을 서버에서 되읽어 확인한다. 화면만 바뀌고 서버는 그대로인 경우를
+  // 여기서 잡아야, 홈 배너가 왜 안 변하는지 헤매지 않는다.
+  const back = await api(`/api/timetable/${USER}`);
+  const same = JSON.stringify(back.timetable || {}) === JSON.stringify(table);
+  if (!same) {
+    alert("저장이 서버에 반영되지 않았어요. 새로고침 후 다시 시도해 주세요.");
+    return;
+  }
+  location.href = "/home.html?t=" + Date.now();   // 홈을 캐시 없이 다시 그린다
+}
+
+(async () => {
+  const data = await api(`/api/timetable/${USER}`);
+  table = data.timetable || {};
+  document.getElementById("major").value = data.major || "";
+  document.getElementById("major").addEventListener("input", updateHint);
+  updateHint();
+  render();
+})();
+</script>
+</body>
+</html>

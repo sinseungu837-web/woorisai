@@ -1,0 +1,18 @@
+{
+  "s001": {
+    "factor": 0.937,
+    "observed_ratio": 0.873,
+    "previous": 1.0,
+    "alpha": 0.5,
+    "n": 1,
+    "status": "실측 1건으로 갱신 (α=0.5)"
+  },
+  "s105": {
+    "factor": 0.99,
+    "observed_ratio": 0.98,
+    "previous": 1.0,
+    "alpha": 0.5,
+    "n": 1,
+    "status": "실측 1건으로 갱신 (α=0.5)"
+  }
+}

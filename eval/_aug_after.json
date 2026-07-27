@@ -1,0 +1,51 @@
+{
+  "available": true,
+  "target": "population_quarterly (해커톤 제공 유동인구)",
+  "test_quarters": [
+    "2025년_1분기",
+    "2025년_2분기",
+    "2025년_3분기",
+    "2025년_4분기",
+    "2026년_1분기"
+  ],
+  "context_baseline": 16,
+  "context_augmented": 32,
+  "scale_factor": 1229.249,
+  "actual": [
+    20944815.0,
+    23054424.0,
+    19625573.0,
+    22941117.0,
+    20641163.0
+  ],
+  "pred_baseline": [
+    22806528.0,
+    21495808.0,
+    22413312.0,
+    20709376.0,
+    22151168.0
+  ],
+  "pred_augmented": [
+    23068672.0,
+    21757952.0,
+    22151168.0,
+    20578304.0,
+    21495808.0
+  ],
+  "pred_naive": [
+    23045855.75,
+    22597636.75,
+    22099545.25,
+    21646837.0,
+    21641482.25
+  ],
+  "mae_baseline": 1989963,
+  "mae_augmented": 1832676,
+  "mae_naive": 1465280,
+  "mape_baseline": 9.38,
+  "mape_augmented": 8.61,
+  "mape_naive": 7.02,
+  "gain_vs_baseline_pct": 7.9,
+  "gain_vs_naive_pct": -25.1,
+  "method": "chronos-bolt"
+}

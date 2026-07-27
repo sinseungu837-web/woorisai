@@ -1,0 +1,40 @@
+# --- secrets (절대 커밋 금지) ---
+.env
+.env.*
+*.key
+*.pem
+secrets.json
+
+# --- python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# --- model weights / large binaries (레포에 넣지 않음) ---
+*.safetensors
+*.bin
+*.pt
+*.onnx
+models/
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# --- build / temp ---
+build/
+*.log
+uvicorn.log
+tunnel.log
+nohup.out
+
+# --- runtime data that should not be public ---
+# 데모 계정 외 실제 사용자가 쌓이면 여기서 제외
+# data/users.json

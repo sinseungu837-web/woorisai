@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>친구 시간표 겹쳐보기 — 우리사이</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<style>
+  .members { display: flex; gap: 7px; margin-bottom: 14px; flex-wrap: wrap; }
+  .chip {
+    display: flex; align-items: center; gap: 6px;
+    padding: 7px 13px; border-radius: 999px;
+    border: 1px solid var(--line); background: #fff;
+    font-size: 13px; cursor: pointer; color: var(--text-2);
+  }
+  .chip.on { background: var(--green); color: #fff; border-color: var(--green); }
+  .result { background: var(--green); color: #fff; border-radius: var(--radius);
+            padding: 16px 18px; margin: 16px 0 12px; }
+  .result .big { font-size: 19px; font-weight: 800; letter-spacing: -.4px; }
+  .result .small { opacity: .88; font-size: 13px; margin-top: 3px; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div id="top"></div>
+
+  <div class="page">
+    <h2>우리 언제 비어?</h2>
+    <p class="sub">친구를 고르면 다 같이 비는 시간을 자동으로 찾아드려요</p>
+    <p class="sub" style="margin-top:-6px">
+      <a href="/timetable.html" style="color:var(--green);font-weight:600">내 시간표 다시 짜기 →</a></p>
+
+    <div class="members" id="members"></div>
+    <div class="tt-wrap"><table class="tt" id="grid"></table></div>
+
+    <div class="legend">
+      <div><i style="background:var(--green)"></i>다 같이 비는 시간</div>
+      <div><i style="background:var(--bg-soft)"></i>누군가 수업 중</div>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <div id="tabs"></div>
+</div>
+
+<script src="/static/js/common.js?v=41"></script>
+<script>
+document.getElementById("top").innerHTML = topbar("친구 시간표", false);
+document.getElementById("tabs").innerHTML = tabbar("friends");
+
+let picked = new Set([USER]);
+let all = [];
+
+async function load() {
+  all = await api("/api/friends");
+  document.getElementById("members").innerHTML = all.map(u =>
+    `<div class="chip ${picked.has(u.id) ? "on" : ""}" onclick="toggle('${u.id}')">${u.name}</div>`
+  ).join("");
+  refresh();
+}
+
+function toggle(id) {
+  if (id === USER) return;                 // 본인은 항상 포함
+  picked.has(id) ? picked.delete(id) : picked.add(id);
+  load();
+}
+
+// 화면에 떠 있는 그 구간 그대로 챗봇에 넘긴다.
+// 요일을 안 넘기면 챗봇이 '오늘' 기준으로 다시 계산해서,
+// 화면은 월요일인데 답변은 목요일이 되는 일이 생긴다.
+function goChat(day, start, end) {
+  location.href = `/chat.html?from=timetable&day=${encodeURIComponent(day)}`
+                + `&start=${start}&end=${end}`;
+}
+
+async function refresh() {
+  const res = await api(`/api/friends/intersect?users=${[...picked].join(",")}`);
+
+  // 격자 그리기 — 공통 공강만 초록으로
+  let html = "<tr><th></th>" + DAYS.map(d => `<th>${d}</th>`).join("") + "</tr>";
+  HOURS.forEach(h => {
+    html += `<tr><td class="h">${h}</td>`;
+    DAYS.forEach(d => {
+      const free = (res.common_free[d] || []).includes(h);
+      html += `<td class="cell ${free ? "free-all" : ""}"></td>`;
+    });
+    html += "</tr>";
+  });
+  document.getElementById("grid").innerHTML = html;
+
+  // 가장 긴 공통 시간대 안내.
+  // 혼자 볼 때는 '이번 주 최장'이 아니라 '지금 몇 시간 비는지'가 궁금하므로
+  // 서버(/api/free-now)가 계산한 오늘 기준 값을 같이 보여준다.
+  const best = (res.blocks || []).sort((a, b) => b.length - a.length)[0];
+  const solo = picked.size === 1;
+
+  let nowLine = "";
+  if (solo) {
+    try {
+      const f = await api(`/api/free-now?user_id=${USER}`);
+      nowLine = `<div class="small">지금 기준 — ${f.text.replace("지금 ", "")} · ${f.sub}</div>`;
+    } catch (e) { /* 시간표 미등록이면 생략 */ }
+  }
+
+  document.getElementById("result").innerHTML = best
+    ? `<div class="result">
+         <div class="big">${best.day}요일 ${best.start}–${best.end}시, ${res.members.join(" · ")} 다 비어요</div>
+         <div class="small">${best.length}시간 연속으로 비는 시간이에요</div>
+         ${nowLine}
+       </div>
+       <button class="btn" onclick="goChat('${best.day}', ${best.start}, ${best.end})">이 시간에 갈 곳 찾기</button>`
+    : `<div class="empty">다 같이 비는 시간이 없어요.<br>친구를 줄여보세요.</div>`;
+}
+
+load();
+</script>
+</body>
+</html>

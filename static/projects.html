@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>회기 프로젝트 — 우리사이</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<style>
+  .match { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .score { font-size: 11px; color: var(--gray-2); margin-top: 8px; }
+  .score b { color: var(--green); }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div id="top"></div>
+
+  <div class="page">
+    <h2>회기 프로젝트</h2>
+    <p class="sub">상인이 올린 과제를 전공·공강 시간에 맞춰 추천합니다</p>
+
+    <div id="list"><div class="empty">불러오는 중…</div></div>
+  </div>
+
+  <div id="tabs"></div>
+</div>
+
+<script src="/static/js/common.js?v=41"></script>
+<script>
+document.getElementById("top").innerHTML = topbar("프로젝트 매칭", false);
+document.getElementById("tabs").innerHTML = tabbar("projects");
+
+(async () => {
+  const items = await api(`/api/projects?user_id=${USER}`);
+  document.getElementById("list").innerHTML = items.map(p => `
+    <div class="card">
+      <div class="card-row">
+        <div class="grow">
+          <h3>${p.title}</h3>
+          <div class="meta">${p.store_name} · 예상 ${p.hours_needed}시간</div>
+        </div>
+        <span class="badge ${p.similarity >= 0.6 ? "normal" : "quiet"}">
+          ${Math.round(p.similarity * 100)}%
+        </span>
+      </div>
+      <p style="font-size:13.5px;color:var(--text-2);margin:10px 0 0">${p.description}</p>
+      <div class="match">
+        ${p.reason_major ? `<span class="badge find">${p.reason_major}</span>` : ""}
+        ${p.reason_time ? `<span class="badge indigo">${p.reason_time}</span>` : ""}
+        ${p.certified ? `<span class="badge quiet">비교과 인증</span>` : ""}
+        <span class="badge quiet">${p.reward}</span>
+      </div>
+      <div class="score">의미 유사도 <b>${p.similarity}</b> · 시간 조건 ${p.time_ok ? "충족" : "미충족"}</div>
+    </div>`).join("");
+})();
+</script>
+</body>
+</html>

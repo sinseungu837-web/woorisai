@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>챗봇 — 우리사이</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<style>
+  .chat-log { padding-bottom: 150px; }
+  .quick { display: flex; gap: 6px; overflow-x: auto; padding: 0 14px 10px; }
+  .quick button {
+    white-space: nowrap; padding: 8px 13px; font-size: 12.5px;
+    border: 1px solid var(--line); background: #fff; border-radius: 999px;
+    color: var(--text-2); cursor: pointer; font-family: inherit;
+  }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div id="top"></div>
+  <div id="campusPick" style="display:flex;gap:6px;padding:10px 14px 4px;align-items:center">
+    <span style="font-size:12px;color:var(--gray)">기준 학교</span>
+    <div class="pill" onclick="setCampus('경희대')">경희대</div>
+    <div class="pill" onclick="setCampus('한국외대')">한국외대</div>
+  </div>
+  <div class="chat-log" id="log"></div>
+
+  <div style="position:fixed;bottom:62px;left:0;right:0;max-width:460px;margin:0 auto;background:#fff">
+    <div class="quick">
+      <button onclick="ask('나 3시까지 비는데 선물 사야 돼')">선물 사야 돼</button>
+      <button onclick="ask('40분 남았는데 밥 먹을 데')">밥 먹을 데</button>
+      <button onclick="ask('조용한 카페 가고 싶어')">조용한 카페</button>
+      <button onclick="ask('우리 과 종강총회 25명인데 자리 있어?')">단체 25명</button>
+      <button onclick="ask('', 'booking_start', '단체예약 문의하고 싶어요')">단체예약 문의</button>
+      <button onclick="ask('', 'review_start', '후기 남기고 싶어요')">후기 남기기</button>
+      <button onclick="ask('', 'survey_start', '이달의 설문 참여할게요')">이달의 설문</button>
+    </div>
+    <div class="chat-input" style="position:static">
+      <input id="msg" placeholder="지금 뭐하지?" onkeydown="onEnter(event)">
+      <button onclick="send()">→</button>
+    </div>
+  </div>
+
+  <div id="tabs"></div>
+</div>
+
+<script src="/static/js/common.js?v=41"></script>
+<script>
+document.getElementById("top").innerHTML = topbar("우리사이 챗봇", false);
+document.getElementById("tabs").innerHTML = tabbar("chat");
+
+const log = document.getElementById("log");
+
+function bubble(text, who) {
+  const d = document.createElement("div");
+  d.className = "bubble " + who;
+  d.textContent = text;
+  log.appendChild(d);
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+function stores(list) {
+  if (!list.length) return;
+  const wrap = document.createElement("div");
+  wrap.style.cssText = "max-width:82%;margin-bottom:10px";
+  wrap.innerHTML = list.map(s => `
+    <div class="store-mini">
+      <div class="card-row">
+        <div class="grow">
+          <b style="font-size:14.5px">${s.name}</b>
+          <div class="meta" style="font-size:12.5px">도보 ${s.walk_min}분 · ${s.category}</div>
+        </div>
+        <span class="badge ${badgeClass(s.congestion_label)}">${s.congestion_label}</span>
+      </div>
+      <button class="btn sm ghost" style="margin-top:8px" onclick="openRoute('${s.id}')">가는 길 · 몇 분?</button>
+    </div>`).join("");
+  log.appendChild(wrap);
+}
+
+let CAMPUS = localStorage.getItem("campus") || "경희대";   // 기준 학교
+
+async function ask(text, mode, label) {
+  bubble(label || text, "me");
+  // 현재 위치를 알면 함께 보낸다 — 캠퍼스 정문이 아니라 '지금 있는 자리'에서
+  // 시간 안에 갈 수 있는 곳만 추천받기 위함. 거부하면 학교 기준으로 동작.
+  if (!MY_POS) await askMyLocation();
+  const body = { message: text, user_id: USER, mode, campus: CAMPUS };
+  if (MY_POS) { body.lat = MY_POS.lat; body.lng = MY_POS.lng; }
+  const res = await post("/api/chat", body);
+  bubble(res.answer, "bot");
+  stores(res.stores);
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+function setCampus(c) {
+  CAMPUS = c;
+  localStorage.setItem("campus", c);
+  document.querySelectorAll("#campusPick .pill")
+    .forEach(p => p.classList.toggle("on", p.textContent === c));
+}
+
+// 한글 조합(IME) 중 Enter는 '조합 확정'이므로 전송하지 않는다.
+// 가드가 없으면 마지막 글자가 중복되거나 이중 전송된다.
+function onEnter(e) {
+  if (e.key !== "Enter") return;
+  if (e.isComposing || e.keyCode === 229) return;
+  e.preventDefault();
+  send();
+}
+
+let SENDING = false;
+function send() {
+  const input = document.getElementById("msg");
+  const text = input.value.trim();
+  if (!text || SENDING) return;          // 빈 입력·중복 전송 차단
+  SENDING = true;
+  input.value = "";
+  Promise.resolve(ask(text)).finally(() => { SENDING = false; });
+}
+
+setCampus(CAMPUS);   // 저장된 학교 칩 표시
+
+const GREETING = "안녕하세요! 지금 몇 분 비는지, 뭐가 필요한지 말해주세요.\n"
+               + "예) \"3시까지 비는데 프린트해야 돼\"";
+
+// 첫 말풍선을 어디서 들어왔는지에 따라 다르게 연다.
+//
+//  시간표 → "이 시간에 갈 곳 찾기"  : 오늘 공강 기준 제안을 첫 화면에 바로
+//  그 외 (탭바 · 챗봇 버튼)        : 인사말만
+//
+// 그냥 들어온 사람에게 "오늘 몇 분 비네요"를 들이밀면 묻지도 않은 일정으로
+// 대화가 시작된다. 반대로 시간표에서 넘어온 사람에게는 그게 곧 용건이라
+// 인사말을 앞에 두면 한 번 더 스크롤해야 본론이 보인다.
+const Q = new URLSearchParams(location.search);
+if (Q.get("from") === "timetable") {
+  (async () => {
+    try {
+      // 친구 시간표에서 고른 구간이 있으면 그대로 넘긴다 (없으면 서버가 오늘로 계산)
+      const blk = Q.get("day") && Q.get("start") && Q.get("end")
+        ? `&day=${encodeURIComponent(Q.get("day"))}&start=${Q.get("start")}&end=${Q.get("end")}`
+        : "";
+      const t = await api(`/api/chat/today?user_id=${USER}`
+                        + `&campus=${encodeURIComponent(CAMPUS)}${blk}`);
+      if (t.answer) {
+        bubble(t.answer, "bot");
+        if (t.stores && t.stores.length) stores(t.stores);
+      } else {
+        bubble(GREETING, "bot");          // 제안할 공강이 없으면 인사말로
+      }
+    } catch (e) {
+      bubble(GREETING, "bot");            // 시간표 미등록 등
+    }
+  })();
+} else {
+  bubble(GREETING, "bot");
+}
+</script>
+</body>
+</html>

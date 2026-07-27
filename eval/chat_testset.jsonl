@@ -1,0 +1,20 @@
+{"id": 1, "text": "40분 비는데 조용히 공부할 데 없나", "intent": "추천", "edge": null, "stores_expected": true, "must_not_contain": [], "gold": {"minutes": 40, "purpose": "스터디"}}
+{"id": 2, "text": "우리 과 종강총회 25명인데 자리 있어?", "intent": "단체예약", "edge": null, "stores_expected": false, "must_not_contain": [], "gold": {"people": 25}}
+{"id": 3, "text": "배고파", "intent": "추천", "edge": "맥락누수", "stores_expected": true, "must_not_contain": ["25명", "25 명", "예약"], "gold": {"purpose": "식사"}, "prev_id": 2}
+{"id": 4, "text": "책 사고 싶어", "intent": "추천", "edge": "데이터", "stores_expected": true, "must_not_contain": [], "gold": {"purpose": "서점"}}
+{"id": 5, "text": "오늘 날씨 어때?", "intent": "범위밖", "edge": "범위밖", "stores_expected": false, "must_not_contain": ["찾으시는군요"], "gold": {}}
+{"id": 6, "text": "3시까지 비는데 친구 생일선물 사야돼", "intent": "추천", "edge": "시각파싱", "stores_expected": true, "must_not_contain": [], "gold": {"purpose": "선물"}}
+{"id": 7, "text": "ㅋㅋㅋㅋ", "intent": "무의미", "edge": "무의미", "stores_expected": false, "must_not_contain": ["찾으시는군요"], "gold": {}}
+{"id": 8, "text": "20분 안에 커피 마실 데", "intent": "추천", "edge": null, "stores_expected": true, "must_not_contain": [], "gold": {"minutes": 20, "purpose": "카페"}}
+{"id": 9, "text": "다음주 금요일 저녁 7시 30명 회식", "intent": "단체예약", "edge": null, "stores_expected": false, "must_not_contain": [], "gold": {"people": 30}}
+{"id": 10, "text": "필름 현상 어디서 해?", "intent": "추천", "edge": null, "stores_expected": true, "must_not_contain": [], "gold": {"purpose": "사진"}}
+{"id": 11, "text": "만원으로 저녁 먹을 데", "intent": "추천", "edge": "예산", "stores_expected": true, "must_not_contain": [], "gold": {"purpose": "식사"}}
+{"id": 12, "text": "도보 5분 안에 밥집", "intent": "추천", "edge": "도보제한", "stores_expected": true, "must_not_contain": [], "gold": {"purpose": "식사"}}
+{"id": 13, "text": "프린트 어디서 해", "intent": "추천", "edge": null, "stores_expected": true, "must_not_contain": [], "gold": {"purpose": "인쇄"}}
+{"id": 14, "text": "심심해", "intent": "추천", "edge": "열린요청", "stores_expected": true, "must_not_contain": ["찾으시는군요"], "gold": {"purpose": "레저"}}
+{"id": 15, "text": "학교 앞 맛집 추천", "intent": "추천", "edge": null, "stores_expected": true, "must_not_contain": [], "gold": {"purpose": "식사"}}
+{"id": 16, "text": "1시간 비어", "intent": "추천", "edge": "열린요청", "stores_expected": true, "must_not_contain": [], "gold": {"minutes": 60}}
+{"id": 17, "text": "조용한 카페", "intent": "추천", "edge": null, "stores_expected": true, "must_not_contain": [], "gold": {"purpose": "카페"}}
+{"id": 18, "text": "안녕", "intent": "인사", "edge": "무의미", "stores_expected": false, "must_not_contain": ["찾으시는군요"], "gold": {}}
+{"id": 19, "text": "", "intent": "빈입력", "edge": null, "stores_expected": false, "must_not_contain": [], "gold": {}}
+{"id": 20, "text": "커피 마시고 나서 책도 보고싶어", "intent": "추천", "edge": "복합의도", "stores_expected": true, "must_not_contain": [], "gold": {"purpose": "카페"}}

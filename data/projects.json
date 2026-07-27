@@ -1,0 +1,32 @@
+[
+  {
+    "id": "p001",
+    "store_id": "s101",
+    "store_name": "녹원",
+    "title": "메뉴판 영문·중문화",
+    "description": "메뉴판을 영어와 중국어로 번역해주세요. 유학생 손님이 늘어서 필요합니다.",
+    "hours_needed": 8,
+    "reward": "소액 보상",
+    "certified": true
+  },
+  {
+    "id": "p002",
+    "store_id": "s003",
+    "store_name": "카페 온기",
+    "title": "인스타 릴스 4편 제작",
+    "description": "가게 분위기를 담은 SNS 콘텐츠와 릴스 영상을 만들어주세요.",
+    "hours_needed": 12,
+    "reward": "포트폴리오 + 소액 보상",
+    "certified": false
+  },
+  {
+    "id": "p003",
+    "store_id": "s103",
+    "store_name": "본도시락",
+    "title": "신메뉴 반응 테스트",
+    "description": "신메뉴 시식 후 설문 데이터를 모으고 분석해주세요.",
+    "hours_needed": 5,
+    "reward": "비교과 인증",
+    "certified": true
+  }
+]

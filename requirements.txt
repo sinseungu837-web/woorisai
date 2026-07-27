@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-multipart
+
+# --- AI 모델 (실제 연결 시 주석 해제) ---
+# torch
+# transformers          # EXAONE 3.5
+# chronos-forecasting   # Chronos-Bolt
+# FlagEmbedding         # BGE-M3

@@ -1,0 +1,114 @@
+[
+ {
+  "store_id": "s003",
+  "term": "두쫀쿠",
+  "intent": "요청",
+  "trend": "신규",
+  "prev": 0,
+  "recent": 7
+ },
+ {
+  "store_id": "s003",
+  "term": "콘센트",
+  "intent": "불만",
+  "trend": "지속",
+  "prev": 5,
+  "recent": 5
+ },
+ {
+  "store_id": "s003",
+  "term": "라떼",
+  "intent": "칭찬",
+  "trend": "지속",
+  "prev": 4,
+  "recent": 3
+ },
+ {
+  "store_id": "s101",
+  "term": "제로슈거",
+  "intent": "요청",
+  "trend": "신규",
+  "prev": 0,
+  "recent": 6
+ },
+ {
+  "store_id": "s101",
+  "term": "대기",
+  "intent": "불만",
+  "trend": "급상승",
+  "prev": 2,
+  "recent": 6
+ },
+ {
+  "store_id": "s102",
+  "term": "혼밥",
+  "intent": "요청",
+  "trend": "지속",
+  "prev": 4,
+  "recent": 4
+ },
+ {
+  "store_id": "s102",
+  "term": "반찬",
+  "intent": "불만",
+  "trend": "급상승",
+  "prev": 2,
+  "recent": 5
+ },
+ {
+  "store_id": "s102",
+  "term": "가성비",
+  "intent": "칭찬",
+  "trend": "지속",
+  "prev": 3,
+  "recent": 4
+ },
+ {
+  "store_id": "s103",
+  "term": "마라",
+  "intent": "요청",
+  "trend": "급상승",
+  "prev": 2,
+  "recent": 6
+ },
+ {
+  "store_id": "s103",
+  "term": "포장",
+  "intent": "불만",
+  "trend": "지속",
+  "prev": 4,
+  "recent": 3
+ },
+ {
+  "store_id": "s104",
+  "term": "스터디룸",
+  "intent": "요청",
+  "trend": "신규",
+  "prev": 0,
+  "recent": 5
+ },
+ {
+  "store_id": "s104",
+  "term": "소음",
+  "intent": "불만",
+  "trend": "지속",
+  "prev": 4,
+  "recent": 4
+ },
+ {
+  "store_id": "s105",
+  "term": "냉동식품",
+  "intent": "요청",
+  "trend": "급상승",
+  "prev": 2,
+  "recent": 5
+ },
+ {
+  "store_id": "s105",
+  "term": "무인계산",
+  "intent": "불만",
+  "trend": "감소",
+  "prev": 6,
+  "recent": 2
+ }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "store_id": "s001",
+    "date": "2026-07-21",
+    "raw": "오늘 지난주보다 25% 늘었고 손님 45명쯤 왔어요. 좀 붐볐네요",
+    "sales_change_pct": 25,
+    "customers": 45,
+    "level": "붐빔"
+  },
+  {
+    "store_id": "s105",
+    "date": "2026-07-21",
+    "raw": "오늘은 어제보다 10명 정도 많았어",
+    "sales_change_pct": null,
+    "customers": 10,
+    "level": "붐빔"
+  }
+]

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>우리사이 — 답은, 사이에</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<style>
+  .hero { padding: 64px 24px 30px; text-align: center; }
+  .hero .logo-mark { width: 76px; height: 76px; border-radius: 18px; margin: 0 auto 20px; }
+  .hero .logo-mark .eye-l, .hero .logo-mark .eye-r { width: 13px; height: 13px; top: 21px; }
+  .hero .logo-mark .eye-l { left: 16px; } .hero .logo-mark .eye-r { right: 16px; }
+  .hero .logo-mark .smile { left: 19px; right: 19px; top: 35px; height: 20px; border-bottom-width: 5px; }
+  .hero .logo-mark .dot { width: 8px; height: 8px; margin-left: -4px; top: 48px; }
+  .hero h1 { font-size: 27px; margin: 0 0 6px; letter-spacing: -.8px; }
+  .hero p { color: var(--green); font-weight: 700; margin: 0 0 10px; font-size: 15px; }
+  .hero .desc { color: var(--gray); font-size: 13.5px; line-height: 1.6; margin: 0; }
+  .role { padding: 8px 24px 30px; }
+  .role .card { padding: 20px; }
+  .role .card h3 { font-size: 17px; }
+  .role .card .meta { margin-top: 4px; line-height: 1.5; }
+  .role .arrow { font-size: 22px; color: var(--gray-2); }
+  .foot { text-align: center; color: var(--gray-2); font-size: 12px; padding-bottom: 30px; }
+</style>
+</head>
+<body>
+<div class="phone" style="padding-bottom:0">
+
+  <div class="hero">
+    <div class="logo-mark"><i class="eye-l"></i><i class="eye-r"></i><div class="smile"></div><i class="dot"></i></div>
+    <h1>우리사이</h1>
+    <p>답은, 사이에</p>
+    <p class="desc">학생의 남은 시간과 지금의 용무를 받아<br>회기 안의 답을 붙여줍니다</p>
+  </div>
+
+  <div class="role">
+    <div class="card tap" onclick="location.href='/timetable.html'">
+      <div class="card-row">
+        <div class="grow">
+          <h3>학생이에요</h3>
+          <div class="meta">수업 사이 비는 시간에<br>회기에서 뭘 할지 찾아드려요</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+    </div>
+
+    <div class="card tap" onclick="location.href='/merchant.html'">
+      <div class="card-row">
+        <div class="grow">
+          <h3>사장님이에요</h3>
+          <div class="meta">학생들이 언제 몰리는지 알려드리고<br>단체 예약을 받아요</div>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="/static/js/common.js?v=41"></script>
+<script>document.body.insertAdjacentHTML("beforeend", chatFab());</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>회기동 상권 데이터 — 우리사이</title>
+<link rel="stylesheet" href="/static/css/style.css">
+<style>
+  .phone { max-width: 900px; padding-bottom: 40px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .stat { background: #fff; border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 14px; text-align: center; }
+  .stat b { display: block; font-size: 24px; color: var(--green); letter-spacing: -.5px; }
+  .stat span { font-size: 12px; color: var(--gray); }
+
+  .catbar { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; font-size: 13px; }
+  .catbar .nm { width: 74px; flex: 0 0 auto; color: var(--text-2); }
+  .catbar .track { flex: 1; height: 20px; background: var(--bg-soft); border-radius: 4px; overflow: hidden; cursor: pointer; }
+  .catbar .fill { height: 100%; background: var(--green); border-radius: 4px; }
+  .catbar .fill.dim { background: var(--indigo-pale); }
+  .catbar .n { width: 42px; text-align: right; color: var(--gray); flex: 0 0 auto; }
+
+  table.data { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.data th { text-align: left; padding: 9px 8px; border-bottom: 2px solid var(--line);
+                  color: var(--gray); font-weight: 600; position: sticky; top: 0; background: #fff; }
+  table.data td { padding: 9px 8px; border-bottom: 1px solid var(--line-soft); }
+  table.data tr:hover td { background: var(--bg-soft); }
+  .scroll { max-height: 480px; overflow: auto; border: 1px solid var(--line-soft); border-radius: var(--radius); }
+
+  .cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 6px; }
+  .col { font-size: 12px; padding: 7px 10px; border-radius: 6px; background: var(--bg-soft); }
+  .col.high { background: var(--green-pale); color: var(--green-dark); }
+  .col.low  { background: #FDE8E8; color: #9B2C2C; }
+  .col em { font-style: normal; opacity: .6; float: right; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div id="top"></div>
+
+  <div class="page">
+    <h2>회기동 상권 데이터</h2>
+    <p class="sub">소상공인시장진흥공단 상가(상권)정보 · 2026년 3월 기준</p>
+
+    <div class="stat-grid" id="stats"></div>
+
+    <div class="notice">
+      <b>원본 인코딩 안내</b>
+      원본 CSV는 UTF-8입니다. Excel이 cp949로 읽어 글자가 깨지므로,
+      <code>data/raw/회기동_상가정보.csv</code>는 BOM을 붙여 저장했습니다. 바로 열면 정상 표시됩니다.
+    </div>
+
+    <h2 style="font-size:17px;margin-top:26px">업종별 분포</h2>
+    <p class="sub" style="margin-bottom:12px">막대를 누르면 아래 목록이 걸러집니다</p>
+    <div id="cats"></div>
+
+    <h2 style="font-size:17px;margin-top:26px">점포 목록 <span id="listCount" style="color:var(--gray);font-weight:400"></span></h2>
+    <div class="field" style="margin-bottom:10px">
+      <input id="q" placeholder="상호명·업종·주소 검색" oninput="draw()">
+    </div>
+    <div class="scroll">
+      <table class="data">
+        <thead><tr><th>상호명</th><th>업종</th><th>세부</th><th>주소</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <h2 style="font-size:17px;margin-top:26px">원본 항목 39개</h2>
+    <p class="sub" style="margin-bottom:12px">
+      <span style="color:var(--green-dark)">■</span> 100% 채워짐 ·
+      <span style="color:#9B2C2C">■</span> 절반 미만 · 나머지는 부분 채워짐
+    </p>
+    <div class="cols" id="cols"></div>
+  </div>
+</div>
+
+<script src="/static/js/common.js?v=41"></script>
+<script>
+document.getElementById("top").innerHTML = topbar("데이터 확인", false);
+
+let all = [], filter = null;
+
+const COLUMNS = [
+  ["상가업소번호",100],["상호명",100],["지점명",3.8],["상권업종대분류코드",100],
+  ["상권업종대분류명",100],["상권업종중분류코드",100],["상권업종중분류명",100],
+  ["상권업종소분류코드",100],["상권업종소분류명",100],["표준산업분류코드",100],
+  ["표준산업분류명",100],["시도코드",100],["시도명",100],["시군구코드",100],
+  ["시군구명",100],["행정동코드",100],["행정동명",100],["법정동코드",100],
+  ["법정동명",100],["지번코드",100],["대지구분코드",100],["대지구분명",100],
+  ["지번본번지",100],["지번부번지",94.7],["지번주소",100],["도로명코드",100],
+  ["도로명",100],["건물본번지",100],["건물부번지",20],["건물관리번호",99.7],
+  ["건물명",16.8],["도로명주소",100],["구우편번호",100],["신우편번호",100],
+  ["동정보",0],["층정보",65.5],["호정보",0],["경도",100],["위도",100],
+];
+
+function drawStats() {
+  const cats = new Set(all.map(s => s.category));
+  const withCoord = all.filter(s => s.lat).length;
+  document.getElementById("stats").innerHTML = `
+    <div class="stat"><b>963</b><span>회기동 전체 점포</span></div>
+    <div class="stat"><b>${all.length}</b><span>앱에 분류된 점포</span></div>
+    <div class="stat"><b>${cats.size}</b><span>업종 종류</span></div>
+    <div class="stat"><b>${withCoord}</b><span>좌표 확보</span></div>
+    <div class="stat"><b>39</b><span>원본 항목 수</span></div>`;
+}
+
+function drawCats() {
+  const c = {};
+  all.forEach(s => c[s.category] = (c[s.category] || 0) + 1);
+  const entries = Object.entries(c).sort((a, b) => b[1] - a[1]);
+  const max = entries[0][1];
+  document.getElementById("cats").innerHTML = entries.map(([k, v]) => `
+    <div class="catbar">
+      <div class="nm">${k}</div>
+      <div class="track" onclick="setFilter('${k}')">
+        <div class="fill ${filter && filter !== k ? "dim" : ""}" style="width:${v / max * 100}%"></div>
+      </div>
+      <div class="n">${v}</div>
+    </div>`).join("");
+}
+
+function setFilter(cat) {
+  filter = (filter === cat) ? null : cat;
+  drawCats(); draw();
+}
+
+function draw() {
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  let items = all;
+  if (filter) items = items.filter(s => s.category === filter);
+  if (q) items = items.filter(s =>
+    (s.name + s.category + s.category_detail + s.address).toLowerCase().includes(q));
+
+  document.getElementById("listCount").textContent =
+    `${items.length}곳${filter ? ` · ${filter}` : ""}`;
+  document.getElementById("rows").innerHTML = items.slice(0, 300).map(s => `
+    <tr>
+      <td><b>${s.name}</b>${s.branch ? ` <span style="color:var(--gray-2)">${s.branch}</span>` : ""}</td>
+      <td><span class="badge normal">${s.category}</span></td>
+      <td style="color:var(--gray)">${s.category_detail}</td>
+      <td style="color:var(--gray);font-size:12px">${(s.address || "").replace("서울특별시 동대문구 ", "")}</td>
+    </tr>`).join("");
+}
+
+function drawCols() {
+  document.getElementById("cols").innerHTML = COLUMNS.map(([n, p]) =>
+    `<div class="col ${p >= 99 ? "high" : p < 50 ? "low" : ""}">${n}<em>${p}%</em></div>`).join("");
+}
+
+(async () => {
+  all = await api("/api/hoegi/stores");
+  drawStats(); drawCats(); drawCols(); draw();
+})();
+</script>
+</body>
+</html>

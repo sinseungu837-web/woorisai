@@ -1,0 +1,40 @@
+{"text": "50분 비는데 밥 먹을 곳 추천해줘", "slots": {"minutes": 50, "purpose": "식사", "people": 1}}
+{"text": "3시까지 비는데 선물 사야 돼", "slots": {"minutes": 40, "purpose": "선물", "people": 1}}
+{"text": "40분 남았는데 밥 먹을 데", "slots": {"minutes": 40, "purpose": "식사", "people": 1}}
+{"text": "조용한 카페 가고 싶어", "slots": {"minutes": null, "purpose": "카페", "people": 1}}
+{"text": "우리 과 종강총회 25명인데 자리 있어?", "slots": {"minutes": null, "purpose": "단체", "people": 25}}
+{"text": "1시간 있는데 프린트해야 돼", "slots": {"minutes": 60, "purpose": "인쇄", "people": 1}}
+{"text": "과제 때문에 스트레스 받는데 30분 정도 남았어", "slots": {"minutes": 30, "purpose": "스터디", "people": 1}}
+{"text": "책 좀 보고 싶은데 20분 있어", "slots": {"minutes": 20, "purpose": "서점", "people": 1}}
+{"text": "2시간 비는데 밥 먹고 카페 가고 싶어", "slots": {"minutes": 120, "purpose": "식사", "people": 1}}
+{"text": "친구랑 둘이 점심 먹을 곳", "slots": {"minutes": null, "purpose": "식사", "people": 2}}
+{"text": "커피 한잔 하고 싶다", "slots": {"minutes": null, "purpose": "카페", "people": 1}}
+{"text": "15분밖에 없는데 커피만 빨리", "slots": {"minutes": 15, "purpose": "카페", "people": 1}}
+{"text": "꽃 사러 어디 가지", "slots": {"minutes": null, "purpose": "선물", "people": 1}}
+{"text": "동아리 회식 12명 자리 알아봐줘", "slots": {"minutes": null, "purpose": "단체", "people": 12}}
+{"text": "복사할 데 없나", "slots": {"minutes": null, "purpose": "인쇄", "people": 1}}
+{"text": "1시간 반 있는데 밥 먹을 곳", "slots": {"minutes": 90, "purpose": "식사", "people": 1}}
+{"text": "스터디카페 가려고 3시간 잡았어", "slots": {"minutes": 180, "purpose": "스터디", "people": 1}}
+{"text": "저녁 먹을 데 추천", "slots": {"minutes": null, "purpose": "식사", "people": 1}}
+{"text": "45분 남는데 밥이랑 카페 둘 다 되나", "slots": {"minutes": 45, "purpose": "식사", "people": 1}}
+{"text": "8명이서 저녁 예약하고 싶어", "slots": {"minutes": null, "purpose": "단체", "people": 8}}
+{"text": "그냥 심심해", "slots": {"minutes": null, "purpose": null, "people": 1}}
+{"text": "안녕", "slots": {"minutes": null, "purpose": null, "people": 1}}
+{"text": "회기동 좋다", "slots": {"minutes": null, "purpose": null, "people": 1}}
+{"text": "너 뭐 할 수 있어?", "slots": {"minutes": null, "purpose": null, "people": 1}}
+{"text": "오늘 날씨 어때", "slots": {"minutes": null, "purpose": null, "people": 1}}
+{"text": "20분 있는데 뭐하지", "slots": {"minutes": 20, "purpose": null, "people": 1}}
+{"text": "1시간 붕 떴어", "slots": {"minutes": 60, "purpose": null, "people": 1}}
+{"text": "밥 먹을래", "slots": {"minutes": null, "purpose": "식사", "people": 1}}
+{"text": "카페에서 과제하려고 2시간 비웠어", "slots": {"minutes": 120, "purpose": "스터디", "people": 1}}
+{"text": "선물 포장되는 문구점 있어?", "slots": {"minutes": null, "purpose": "선물", "people": 1}}
+{"text": "10명 넘는데 단체로 밥 먹을 데", "slots": {"minutes": null, "purpose": "단체", "people": 10}}
+{"text": "35분 남았는데 점심 빨리", "slots": {"minutes": 35, "purpose": "식사", "people": 1}}
+{"text": "중국음식 먹고 싶어", "slots": {"minutes": null, "purpose": "식사", "people": 1}}
+{"text": "일식 먹을 곳 1시간 있어", "slots": {"minutes": 60, "purpose": "식사", "people": 1}}
+{"text": "치킨 먹으러 가자 4명", "slots": {"minutes": null, "purpose": "식사", "people": 4}}
+{"text": "인생네컷 찍고 싶은데 시간 좀 있어", "slots": {"minutes": null, "purpose": null, "people": 1}}
+{"text": "50분 뒤에 수업인데 밥 먹을 수 있을까", "slots": {"minutes": 50, "purpose": "식사", "people": 1}}
+{"text": "책방 어디 있어", "slots": {"minutes": null, "purpose": "서점", "people": 1}}
+{"text": "친구 세명이랑 카페", "slots": {"minutes": null, "purpose": "카페", "people": 3}}
+{"text": "두시간 통으로 비는데 밥 먹고 뭐 더 할 거 없나", "slots": {"minutes": 120, "purpose": "식사", "people": 1}}
