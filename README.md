@@ -45,6 +45,13 @@ It also aggregates **anonymous student reviews into consulting reports for shop
 owners**, surfacing trending keywords ("students keep asking for X") so the supply
 side can respond.
 
+## Demo & materials
+
+<!-- DEMO_VIDEO -->
+
+- 📄 **Idea proposal deck (46p):** [docs/아이디어_제안서.pdf](docs/아이디어_제안서.pdf) — problem, solution, AI plan, business model, impact
+- 📊 **Presentation deck (14p):** [docs/발표자료.pdf](docs/발표자료.pdf)
+
 ---
 
 ## Architecture
