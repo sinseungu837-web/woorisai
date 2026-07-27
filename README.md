@@ -138,6 +138,7 @@ We varied each input and measured the effect:
 - **Data layer:** JSON store behind a swappable interface (`app/db.py`)
 - **Models:** EXAONE 3.5 · Chronos-Bolt · BGE-M3 (wrapped in `app/ai.py`; swap this
   one file to move from stub to real GPU inference)
+- **GPU:** NVIDIA RTX A6000 (48 GB), CUDA 12.1, PyTorch ≥ 2.1 — zero-shot, ~17.5 GB VRAM
 - **Real data:** 898 stores across 16 categories in Hoegi-dong, from Open Data
   (small-business registry) + OpenStreetMap; monthly living-population series
   (Seoul Open Data)
@@ -173,6 +174,40 @@ uvicorn main:app --reload
 The models in `app/ai.py` run as rule-based stubs by default, so the whole platform
 is runnable on a laptop without a GPU. Point the wrappers at EXAONE / Chronos /
 BGE-M3 to enable real inference.
+
+### Running with real models (GPU)
+
+Benchmarked on a single **NVIDIA RTX A6000 (48 GB VRAM)**, CUDA 12.1, PyTorch ≥ 2.1.
+All three models run **zero-shot** — pretrained weights, no fine-tuning.
+
+```bash
+# install torch matching your CUDA first, e.g. CUDA 12.1
+pip install torch --index-url https://download.pytorch.org/whl/cu121
+pip install -r requirements-gpu.txt
+
+# WOORISAI_REAL=1 switches app/ai.py from stubs to real inference
+WOORISAI_REAL=1 uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+VRAM footprint (bfloat16 / fp16):
+
+| Model | Params | dtype | VRAM |
+|---|---|---|---|
+| EXAONE 3.5 7.8B-Instruct | 7.8B | bfloat16 | ~16 GB |
+| Chronos-Bolt (base) | 205M | bfloat16 | ~0.4 GB |
+| BGE-M3 | 568M | fp16 | ~1.1 GB |
+| **Total** | | | **~17.5 GB** |
+
+So it fits comfortably on the A6000 (~30 GB headroom for KV-cache and concurrent
+requests). On tighter GPUs, switch `MODEL_ID` in `app/ai.py` to
+`LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct` (~5 GB).
+
+- EXAONE runs through its **chat template** with `do_sample=False` (greedy) for
+  reproducible outputs.
+- If a model fails to load or infer, the server **falls back to rule-based mode**
+  automatically — the demo never goes down. Live status (GPU name, memory, per-model
+  load state, call counts, inference latency) is visible at `/status.html`.
+- Full setup notes: [SETUP_GPU.md](SETUP_GPU.md).
 
 ---
 
